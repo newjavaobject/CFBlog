@@ -14,9 +14,9 @@ import org.springframework.web.servlet.config.annotation.*;
  */
 @Configuration
 @EnableWebMvc
-@EnableScheduling
+//@EnableScheduling//开启定时任务
 @EnableAspectJAutoProxy
-@EnableTransactionManagement
+@EnableTransactionManagement//事务
 //@EnableCaching
 @ComponentScan(basePackages = {"com.cf.blog.controller","com.cf.blog.service","com.cf.blog.dao"})
 public class SpringMVC extends WebMvcConfigurerAdapter {
@@ -32,7 +32,7 @@ public class SpringMVC extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("forward:/index.html");
+        registry.addViewController("/").setViewName("forward:/index.html");//根目录跳转首页
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
         super.addViewControllers(registry);
     }

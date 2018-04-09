@@ -1,6 +1,6 @@
 package com.cf.blog.pojo.blog;
 
-import com.cf.blog.pojo.User;
+import com.cf.blog.pojo.user.User;
 
 import java.util.Date;
 

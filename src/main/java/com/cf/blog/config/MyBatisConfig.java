@@ -52,7 +52,7 @@ public class MyBatisConfig {
         return configurer;
     }
 
-    @Bean
+    @Bean("jdbcTemplate")
     public JdbcTemplate jdbcTemplate(){
         JdbcTemplate template = new JdbcTemplate();
         template.setDataSource(comboPooledDataSource());
