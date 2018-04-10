@@ -1,4 +1,4 @@
-package com.cf.blog.pojo.user;
+package com.cf.blog.model.user;
 
 import java.util.List;
 

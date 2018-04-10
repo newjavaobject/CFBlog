@@ -1,16 +1,18 @@
-package com.cf.blog.pojo.blog;
+package com.cf.blog.model.blog;
 
-import com.cf.blog.pojo.user.User;
+import com.cf.blog.model.user.User;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by chenzhiyu on 2018/4/7 0007.
  * 一篇博客文章
  */
-public class Blog {
+public class Article {
     private long id;
     private String title;
+    private int type;//文章类型
     private Date createTime;//创建时间
     private Date startTime;//生效时间
     private Date endTime;//失效时间
@@ -21,6 +23,7 @@ public class Blog {
     private long likeCount;//点赞数量
 
     private User user;//创建人
+    private List<ArticleAttachment> attachments;//附件
 
     public long getId() {
         return id;
@@ -36,6 +39,14 @@ public class Blog {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public Date getCreateTime() {
@@ -108,5 +119,13 @@ public class Blog {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<ArticleAttachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<ArticleAttachment> attachments) {
+        this.attachments = attachments;
     }
 }

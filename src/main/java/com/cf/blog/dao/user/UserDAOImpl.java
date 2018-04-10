@@ -1,7 +1,7 @@
 package com.cf.blog.dao.user;
 
-import com.cf.blog.pojo.user.Role;
-import com.cf.blog.pojo.user.User;
+import com.cf.blog.model.user.Role;
+import com.cf.blog.model.user.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;

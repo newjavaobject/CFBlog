@@ -1,4 +1,4 @@
-package com.cf.blog.dao.user;
+package com.cf.blog.service.user;
 
 import com.cf.blog.model.user.Role;
 import com.cf.blog.model.user.User;
@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by chenzhiyu on 2018/4/7 0007.
  */
-public interface UserDAO {
+public interface IUserService {
     /** 查询单个用户详情 */
     User queryUserById(long id);
 

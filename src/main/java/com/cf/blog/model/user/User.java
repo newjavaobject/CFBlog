@@ -1,4 +1,4 @@
-package com.cf.blog.pojo.user;
+package com.cf.blog.model.user;
 
 /**
  * Created by chenzhiyu on 2018/4/7 0007.
