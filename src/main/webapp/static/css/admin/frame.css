@@ -1,0 +1,11 @@
+.layui-container {
+	margin: 0px;
+	padding: 0px;
+}
+.layui-tab {
+	margin: 0px;
+}
+/*去除圆角效果*/
+.layui-row .layui-nav {
+	border-radius: 0;
+}

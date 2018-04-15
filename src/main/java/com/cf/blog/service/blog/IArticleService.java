@@ -18,7 +18,7 @@ public interface IArticleService {
     int insertArticle(Article article);
 
     /** 更新一篇文章 */
-    int updateArticle(Article article);
+    int updateArticle(Article article, boolean status);
 
     /** 根据Id删除一篇文章 */
     void deleteArticle(long id);

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>博客文章列表</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+		<!--[if lt IE 9]>
+    	<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    	<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    	<![endif]-->
+		<link rel="stylesheet" href="../../js/layui/css/layui.css" />
+		<style>
+			.layui-form-item {
+				margin: 0px;
+				width: 200px;
+			}
+			
+			.layui-table-view {
+				margin-top: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="layui-form-item layui-inline">
+			<label class="layui-form-label">文章名称</label>
+			<div class="layui-input-inline">
+				<input type="text" name="articleName_s" placeholder="请输入文章名称" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item layui-inline">
+			<label class="layui-form-label">所属类别</label>
+			<div class="layui-input-inline">
+				<input type="text" name="articleCategory_s" placeholder="请输入类别" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<button class="layui-btn" data-type="reload">搜索</button>
+		<div class="layui-inline" style="width: 500px;"></div>
+		<div class="layui-btn-group">
+			<button class="layui-btn" id="addArticle"><i class="layui-icon">&#xe654;</i>&nbsp;新增文章</button>
+		</div>
+		<table class="layui-hide" id="article_table" lay-filter="articleTable"></table>
+	</body>
+
+	<script src="../../js/jquery-3.3.1.min.js"></script>
+	<script src="../../js/layui/layui.all.js"></script>
+	<script src="../../js/frame.js"></script>
+	<script type="text/html" id="operation">
+		<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">预览</a>
+		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="nouse">禁用</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+	</script>
+	<script>
+		layui.use('table', function() {
+			var table = layui.table;
+			//展示已知数据
+			table.render({
+				elem: '#article_table',
+				cols: [
+					[
+						{
+							type: 'checkbox'
+						},
+						{
+							field: 'id',
+							title: 'ID',
+							width: 80,
+							sort: true
+						}, {
+							field: 'articleName',
+							title: '文章名',
+							width: 120
+						}, {
+							field: 'articleCategory',
+							title: '文章类别',
+							minWidth: 120
+						}, {
+							field: 'createTime',
+							title: '创建时间',
+							minWidth: 100
+						}, {
+							field: 'createUser',
+							title: '创建人',
+							width: 80
+						}, {
+							field: 'articleStatus',
+							title: '状态',
+							width: 80
+						}, {
+							field: 'viewCount',
+							title: '浏览量',
+							width: 80,
+							sort: true
+						},
+						{
+							field: 'label',
+							title: '标签',
+							width: 80,
+							sort: true
+						},
+						{
+							fixed: 'right',
+							width: 210,
+							align: 'center',
+							toolbar: '#operation'
+						}
+					]
+				],
+				page: true,
+				data: [{
+						"id": "10001",
+						"articleName": "杜甫",
+						"createTime": "xianxin@layui.com",
+						"createUser": "男",
+						"articleCategory": "浙江杭州",
+						"articleStatus": "人生恰似一场修行",
+						"viewCount": "116",
+						"label": "192.168.0.8"
+					}, {
+						"id": "10001",
+						"articleName": "杜甫",
+						"createTime": "xianxin@layui.com",
+						"createUser": "男",
+						"articleCategory": "浙江杭州",
+						"articleStatus": "人生恰似一场修行",
+						"viewCount": "116",
+						"label": "192.168.0.8",
+						"LAY_CHECKED": true
+					}],
+				even: true,
+				page: true //是否显示分页
+				//,limits: [5, 7, 10]
+				//,limit: 5 //每页默认显示的数量
+			});
+			
+			//监听工具条
+			table.on('tool(articleTable)', function(obj) {
+				var data = obj.data;
+				if(obj.event === 'detail') {
+					var win = layer.open({
+						'type':2,
+						'title':data.articleName+"详情",
+						'content':"blog_detail.html",
+						'area':['500px', '500px'],
+						'btn':'确定',
+						'yes':function(index, layero){
+							layer.close(win);
+						}
+					});
+				} else if(obj.event === 'del') {
+					layer.confirm('确认删除 '+data.articleName+'？', function(index) {
+						//      obj.del();
+						layer.alert(data.articleName+"成功！");
+						layer.close(index);
+					},function(index){
+						layer.alert(data.articleName+"失败！");
+						layer.close(index);
+					});
+				} else if(obj.event === 'edit') {
+					var win = layer.open({
+						'type':2,
+						'title':data.articleName+"编辑",
+						'content':"blog_edit.html",
+						'area':['500px', '500px'],
+						'btn':'确定',
+						'yes':function(index, layero){
+							layer.close(win);
+						}
+					});
+				} else if('nouse' == obj.event) {
+					layer.confirm('确认禁用'+data.articleName+'？', function(index) {
+						//      obj.del();
+						layer.alert(data.articleName+"成功！");
+						layer.close(index);
+					},function(index){
+						layer.alert(data.articleName+"失败！");
+						layer.close(index);
+					});
+				}
+			});
+		});
+		
+		$("#addArticle").click(function(){
+			var win = layer.open({
+				'type':2,
+				'title':"新增博客文章",
+				'content':"blog_add.html",
+				'area':['800px', '510px'],
+				'btn':['提交','取消'],
+				'yes':function(index, layero){
+					layer.close(win);
+				},
+				"btn2":function(index, layero){
+					layer.alert("取消新增");
+				}
+			});
+		});
+	</script>
+
+</html>

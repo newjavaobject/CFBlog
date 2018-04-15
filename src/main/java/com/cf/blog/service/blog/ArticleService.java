@@ -39,21 +39,12 @@ public class ArticleService implements IArticleService {
     }
 
     @Override
-    public int updateArticle(Article article) {
-        return 0;
+    public int updateArticle(Article article, boolean status) {
+        return articleDAO.updateArticle(article, status);
     }
 
     @Override
     public void deleteArticle(long id) {
-
-    }
-
-    private class ArticleRowMapper implements RowMapper<Article> {
-        @Override
-        public Article mapRow(ResultSet resultSet, int i) throws SQLException {
-            Article article = new Article();
-            article.setId(resultSet.getLong("ID"));
-            return article;
-        }
+        articleDAO.deleteArticle(id);
     }
 }

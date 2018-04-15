@@ -1,0 +1,129 @@
+<#assign ctx = request.contextPath />
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>首页</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+		<!--[if lt IE 9]>
+    	<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    	<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    	<![endif]-->
+		<link rel="stylesheet" href="${ctx}/static/js/layui/css/layui.css" />
+		<link rel="stylesheet" href="${ctx}/static/css/admin/frame.css" />
+	</head>
+
+	<body>
+		<div class="layui-container">
+			<div class="layui-row">
+				<ul class="layui-nav">
+					<li class="layui-nav-item">
+						<a href="">最新活动</a>
+					</li>
+					<li class="layui-nav-item layui-this">
+						<a href="javascript:;">产品</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="">选项1</a>
+							</dd>
+							<dd>
+								<a href="">选项2</a>
+							</dd>
+							<dd>
+								<a href="">选项3</a>
+							</dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item">
+						<a href="">大数据</a>
+					</li>
+					<li class="layui-nav-item">
+						<a href="javascript:;">解决方案</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="">移动模块</a>
+							</dd>
+							<dd>
+								<a href="">后台模版</a>
+							</dd>
+							<dd class="layui-this">
+								<a href="">选中项</a>
+							</dd>
+							<dd>
+								<a href="">电商平台</a>
+							</dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item">
+						<a href="">社区</a>
+					</li>
+				</ul>
+			</div>
+			<div class="layui-row">
+				<div class="layui-col-xs2">
+			      <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="menu_tree" style="margin-right: 10px;">
+					<li class="layui-nav-item layui-nav-itemed">
+						<a href="javascript:;">基础管理</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="javascript:;" id="user_manager">用户管理</a>
+							</dd>
+							<dd>
+								<a href="javascript:;" id="role">角色管理</a>
+							</dd>
+							<dd>
+								<a href="javascript:;" id="organize">组织机构管理</a>
+							</dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item">
+						<a href="javascript:;">权限管理</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="javascript:;" id="permission_menu">权限菜单</a>
+							</dd>
+							<dd>
+								<a href="javascript:;" id="permission">权限设置</a>
+							</dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item">
+						<a href="javascript:;">博客管理</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="javascript:;" id="blog">博客列表</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">统计</a>
+							</dd>
+						</dl>
+					</li>
+				</ul>
+			    </div>
+			    <div class="layui-col-xs10">
+			    	<div class="layui-tab layui-tab-card" style="width: 100%;" lay-allowClose="true" lay-filter="table">
+					  <ul class="layui-tab-title">
+					    <li class="layui-this">首页</li>
+					  </ul>
+					  <div class="layui-tab-content">
+					    <div class="layui-tab-item layui-show">
+					      1. 宽度足够，就不会出现右上图标；宽度不够，就会开启展开功能。
+					      <br>2. 如果你的宽度是自适应的，Tab会自动判断是否需要展开，并适用于所有风格。
+					    </div>
+					  </div>
+					</div>
+			    </div>
+				
+			</div>
+		</div>
+	</body>
+
+	<script src="${ctx}/static/js/jquery-3.3.1.min.js"></script>
+	<script src="${ctx}/static/js/layui/layui.all.js"></script>
+	<script src="${ctx}/static/js/admin/frame.js"></script>
+</html>

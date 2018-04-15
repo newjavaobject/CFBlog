@@ -1,11 +1,7 @@
 package com.cf.blog.dao.blog;
 
-import com.cf.blog.dao.user.UserDAOImpl;
 import com.cf.blog.model.blog.Article;
-import com.cf.blog.model.user.User;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -13,8 +9,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -67,18 +61,29 @@ public class ArticleDAOImpl implements ArticleDAO {
     @Override
     public int insertArticle(Article article) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(con -> con.prepareStatement("INSERT INTO tb_article(TITLE) VALUES ("+article.getTitle()+")"), keyHolder);
+        jdbcTemplate.update(con -> con.prepareStatement("INSERT INTO tb_article(TITLE,TYPE,CREATETIME,STARTTIME,ENDTIME,STATUS,LABEL,CONTENT)" +
+                " VALUES ('"+article.getTitle()+"',"+article.getType()+","+article.getCreateTime()+","+article.getStartTime()+"," +
+                ""+article.getEndTime()+","+article.getStatus()+",'"+article.getLabel()+"','"+article.getContent()+"')"), keyHolder);
         return keyHolder.getKey().intValue();
     }
 
     @Override
-    public int updateArticle(Article article) {
-        return 0;
+    public int updateArticle(Article article, boolean status) {
+        String sql = "";
+        if (status) {//只修改状态
+            sql = "UPDATE tb_article SET STATUS = ? WHERE ID = ?";
+            return jdbcTemplate.update(sql, article.getStatus(), article.getId());
+        }else {//不改变状态
+            sql ="UPDATE tb_article SET TITLE=?,TYPE=?,STARTTIME=?,ENDTIME=?,LABEL=?,CONTENT=? WHERE ID = ?";
+            return jdbcTemplate.update(sql, article.getTitle(), article.getType(), article.getStartTime(), article.getEndTime(),
+                    article.getLabel(), article.getContent());
+        }
     }
 
     @Override
     public void deleteArticle(long id) {
-
+        String sql = "DELETE FROM tb_article WHERE id = ?";
+        jdbcTemplate.update(sql, id);
     }
 
     private class ArticleRowMapper implements RowMapper<Article> {
@@ -86,6 +91,14 @@ public class ArticleDAOImpl implements ArticleDAO {
         public Article mapRow(ResultSet resultSet, int i) throws SQLException {
             Article article = new Article();
             article.setId(resultSet.getLong("ID"));
+            article.setTitle(resultSet.getString("TITLE"));
+            article.setType(resultSet.getInt("TYPE"));
+            article.setCreateTime(resultSet.getDate("CREATETIME"));
+            article.setStartTime(resultSet.getDate("STARTTIME"));
+            article.setEndTime(resultSet.getDate("ENDTIME"));
+            article.setStatus(resultSet.getInt("STATUS"));
+            article.setLabel(resultSet.getString("label"));
+            article.setContent(resultSet.getString("CONTENT"));
             return article;
         }
     }

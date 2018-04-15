@@ -12,7 +12,7 @@ import java.util.List;
 public class Article {
     private long id;
     private String title;
-    private int type;//文章类型
+    private int type;//文章类型 0-技术文章  1-分享文章  2-代码文章 3-bug记录文章
     private Date createTime;//创建时间
     private Date startTime;//生效时间
     private Date endTime;//失效时间

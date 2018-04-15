@@ -32,7 +32,7 @@ public class WebApplicationStarter implements WebApplicationInitializer {
         dynamic.addMapping("*.html");
         dynamic.setLoadOnStartup(1);
 
-        //filter
+        //interceptor
         CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
         encodingFilter.setEncoding("UTF-8");
         encodingFilter.setForceEncoding(true);
