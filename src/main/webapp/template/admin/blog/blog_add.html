@@ -1,3 +1,4 @@
+<#assign ctx = request.contextPath />
 <!DOCTYPE html>
 <html>
 
@@ -13,7 +14,7 @@
     	<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     	<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     	<![endif]-->
-		<link rel="stylesheet" href="../../js/layui/css/layui.css" />
+		<link rel="stylesheet" href="${ctx}/static/js/layui/css/layui.css" />
 	</head>
 
 	<body>
@@ -138,8 +139,8 @@
 		</form>
 	</body>
 	
-	<script src="../../js/jquery-3.3.1.min.js"></script>
-	<script src="../../js/layui/layui.all.js"></script>
+	<script src="${ctx}/static/js/jquery-3.3.1.min.js"></script>
+	<script src="${ctx}/static/js/layui/layui.all.js"></script>
 	<script>
 		layui.use(['form', 'layedit', 'laydate'], function() {
 			var form = layui.form,
@@ -189,7 +190,7 @@
 
 		});
 	</script>
-	<script type="text/javascript" src="../../js/editor/wangEditor.min.js"></script>
+	<script type="text/javascript" src="${ctx}/static/js/editor/wangEditor.min.js"></script>
     <script type="text/javascript">
         var E = window.wangEditor;
         var editor = new E('#editor');

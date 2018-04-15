@@ -29,7 +29,7 @@ var map = {
 	"organize":"../template/organize/organize_list.html",
 	"permission_menu":"../template/organize/permission_menu.html",
 	"permission":"../template/permission/permission.html",
-	"blog":"../template/blog/blog_list.html"
+	"blog":"/blog/admin/blog.html"
 }
 
 layui.use('element', function() {
@@ -37,6 +37,7 @@ layui.use('element', function() {
 
 	//监听导航点击
 	element.on('nav(menu_tree)', function(elem) {
+		console.log("qwe");
 		var url = map[elem[0].children[0].id];
 		if(url == undefined) url = 'https://www.baidu.com';
 

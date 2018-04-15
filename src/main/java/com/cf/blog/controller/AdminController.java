@@ -15,4 +15,9 @@ public class AdminController {
     public String toIndex(HttpServletRequest request){
         return "admin/index";
     }
+
+    @RequestMapping("/blog.html")//首页
+    public String toBlog(HttpServletRequest request){
+        return "admin/blog_list";
+    }
 }

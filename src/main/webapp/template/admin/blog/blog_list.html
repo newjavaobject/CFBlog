@@ -1,3 +1,4 @@
+<#assign ctx = request.contextPath />
 <!DOCTYPE html>
 <html>
 
@@ -13,7 +14,7 @@
     	<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     	<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     	<![endif]-->
-		<link rel="stylesheet" href="../../js/layui/css/layui.css" />
+		<link rel="stylesheet" href="${ctx}/static/js/layui/css/layui.css" />
 		<style>
 			.layui-form-item {
 				margin: 0px;
@@ -47,9 +48,9 @@
 		<table class="layui-hide" id="article_table" lay-filter="articleTable"></table>
 	</body>
 
-	<script src="../../js/jquery-3.3.1.min.js"></script>
-	<script src="../../js/layui/layui.all.js"></script>
-	<script src="../../js/frame.js"></script>
+	<script src="${ctx}/static/js/jquery-3.3.1.min.js"></script>
+	<script src="${ctx}/static/js/layui/layui.all.js"></script>
+	<script src="${ctx}/static/js/admin/frame.js"></script>
 	<script type="text/html" id="operation">
 		<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">预览</a>
 		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -146,7 +147,7 @@
 					var win = layer.open({
 						'type':2,
 						'title':data.articleName+"详情",
-						'content':"blog_detail.html",
+						'content':"${ctx}/admin/blog_detail.html",
 						'area':['500px', '500px'],
 						'btn':'确定',
 						'yes':function(index, layero){
@@ -166,7 +167,7 @@
 					var win = layer.open({
 						'type':2,
 						'title':data.articleName+"编辑",
-						'content':"blog_edit.html",
+						'content':"${ctx}/admin/blog_edit.html",
 						'area':['500px', '500px'],
 						'btn':'确定',
 						'yes':function(index, layero){
@@ -190,7 +191,7 @@
 			var win = layer.open({
 				'type':2,
 				'title':"新增博客文章",
-				'content':"blog_add.html",
+				'content':"${ctx}/admin/blog_add.html",
 				'area':['800px', '510px'],
 				'btn':['提交','取消'],
 				'yes':function(index, layero){
