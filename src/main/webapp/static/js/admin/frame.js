@@ -16,10 +16,6 @@ window.onload = function() {
 	rightHeight = $(".layui-col-xs10").height() - 65;
 	$(".layui-tab-content").css("height", rightHeight);
 
-	$(".layui-col-xs2 .layui-nav-item").click(function() {
-		$(".layui-col-xs2 .layui-nav-item").removeClass("layui-nav-itemed");
-		$(this).addClass("layui-nav-itemed");
-	});
 	$(".layui-tab-title li:eq(0) i").remove();
 }
 
@@ -37,19 +33,19 @@ layui.use('element', function() {
 
 	//监听导航点击
 	element.on('nav(menu_tree)', function(elem) {
-		console.log("qwe");
-		var url = map[elem[0].children[0].id];
-		if(url == undefined) url = 'https://www.baidu.com';
+		if(elem[0].id) {
+			var url = map[elem[0].id];
+			if (url == undefined) url = 'https://www.baidu.com';
 
-		if($("li[lay-id='" + elem.text() + "']").length == 0) {
-			element.tabAdd('table', {
-				title: elem.text(),
-				content: "<iframe frameborder='0' src='" + url + "' style='width:100%;height:" + rightHeight + "px;'></iframe>", //支持传入html
-				id: elem.text()
-			});
+			if ($("li[lay-id='" + elem.text() + "']").length == 0) {
+				element.tabAdd('table', {
+					title: elem.text(),
+					content: "<iframe frameborder='0' src='" + url + "' style='width:100%;height:" + rightHeight + "px;'></iframe>", //支持传入html
+					id: elem.text()
+				});
+			}
+			element.tabChange('table', elem.text());
+			$(".layui-tab-title li:eq(0) i").remove();
 		}
-		element.tabChange('table', elem.text());
-		$(".layui-tab-title li:eq(0) i").remove();
-		//		    layer.msg(elem.text());
 	});
 });

@@ -18,6 +18,6 @@ public class AdminController {
 
     @RequestMapping("/blog.html")//首页
     public String toBlog(HttpServletRequest request){
-        return "admin/blog_list";
+        return "admin/blog/blog_list";
     }
 }
