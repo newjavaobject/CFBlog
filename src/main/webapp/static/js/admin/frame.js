@@ -19,13 +19,18 @@ window.onload = function() {
 	$(".layui-tab-title li:eq(0) i").remove();
 }
 
+window.onresize = function () {
+    $(".layui-tab-title li:eq(0) i").remove();//删除第一个tab的关闭按钮
+}
+
 var map = {
 	"user_manager": "../template/user/user_list.html",
 	"role":"../template/role/role_list.html",
 	"organize":"../template/organize/organize_list.html",
 	"permission_menu":"../template/organize/permission_menu.html",
 	"permission":"../template/permission/permission.html",
-	"blog":"/blog/admin/blog.html"
+	"blog":"/blog/admin/blog.html",
+	"article":"/blog/article/add.html"
 }
 
 layui.use('element', function() {
@@ -48,4 +53,7 @@ layui.use('element', function() {
 			$(".layui-tab-title li:eq(0) i").remove();
 		}
 	});
+    element.on('tab(table)', function(data){
+        $(".layui-tab-title li:eq(0) i").remove();//第一个tab不关闭
+    });
 });

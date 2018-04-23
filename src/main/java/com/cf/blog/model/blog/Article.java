@@ -2,7 +2,6 @@ package com.cf.blog.model.blog;
 
 import com.cf.blog.model.user.User;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,10 +12,10 @@ public class Article {
     private long id;
     private String title;
     private int type;//文章类型 0-技术文章  1-分享文章  2-代码文章 3-bug记录文章
-    private Date createTime;//创建时间
-    private Date startTime;//生效时间
-    private Date endTime;//失效时间
-    private int status;//状态 0：编辑中  1：可发布   2：失效，不能发布
+    private String createTime;//创建时间
+    private String startTime;//生效时间
+    private String endTime;//失效时间
+    private int status;//状态 0：编辑，草稿箱中  1：发布中   2：失效
     private String label;//标签
     private String content;//文章正文
     private long viewCount;//文章浏览量
@@ -49,27 +48,27 @@ public class Article {
         this.type = type;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

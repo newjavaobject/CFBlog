@@ -1,7 +1,7 @@
 package com.cf.blog.controller.blog;
 
 import com.cf.blog.model.JsonResult;
-import com.cf.blog.model.Result;
+import com.cf.blog.model.ResultStatus;
 import com.cf.blog.model.user.User;
 import com.cf.blog.service.user.IUserService;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,7 @@ public class UserController {
     @ResponseBody
     public JsonResult<String> addUser(@RequestBody User user){
         userService.insert(user);
-        return new JsonResult<>(Result.SUCCESS.status, Result.SUCCESS.msg, "新增用户成功");
+        return new JsonResult<>(ResultStatus.SUCCESS, ResultStatus.SUCCESS_MSG, "新增用户成功");
     }
 
     /** 删除用户 */
@@ -38,7 +38,7 @@ public class UserController {
     @ResponseBody
     public JsonResult<String> delUser(@PathVariable("id") long id){
         userService.delete(new User());
-        return new JsonResult<>(Result.SUCCESS.status, Result.SUCCESS.msg, "删除用户成功");
+        return new JsonResult<>(ResultStatus.SUCCESS, ResultStatus.SUCCESS_MSG, "删除用户成功");
     }
 
     /** 更新用户 */
@@ -46,7 +46,7 @@ public class UserController {
     @ResponseBody
     public JsonResult<String> updateUser(@PathVariable("id") User user){
         userService.update(user);
-        return new JsonResult<>(Result.SUCCESS.status, Result.SUCCESS.msg, "编辑用户成功");
+        return new JsonResult<>(ResultStatus.SUCCESS, ResultStatus.SUCCESS_MSG, "编辑用户成功");
     }
 
     /** 获取一个用户信息 */
@@ -69,9 +69,9 @@ public class UserController {
     public JsonResult<List<User>> getUserList(@RequestBody User user){
         List<User> userList = userService.queryForList(user, null);
         if (null != userList) {
-            return new JsonResult<>(Result.SUCCESS.status, Result.SUCCESS.msg, userList);
+            return new JsonResult<>(ResultStatus.SUCCESS, ResultStatus.SUCCESS_MSG, userList);
         } else {
-            return new JsonResult<>(Result.FAILED.status, Result.FAILED.msg, null);
+            return new JsonResult<>(ResultStatus.FAILED, ResultStatus.FAILED_MSG, null);
         }
     }
 }

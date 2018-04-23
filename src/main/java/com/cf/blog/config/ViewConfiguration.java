@@ -38,7 +38,7 @@ public class ViewConfiguration {
         return resolver;
     }
 
-    @Bean
+    @Bean("contentNegotiationManager")
     public ContentNegotiationManagerFactoryBean contentNegotiationManagerFactoryBean(){
         ContentNegotiationManagerFactoryBean bean = new ContentNegotiationManagerFactoryBean();
         bean.setIgnoreAcceptHeader(true);

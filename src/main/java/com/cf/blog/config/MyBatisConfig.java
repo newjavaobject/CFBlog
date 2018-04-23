@@ -68,7 +68,7 @@ public class MyBatisConfig {
         } catch (PropertyVetoException e) {
             e.printStackTrace();
         }
-        dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/inst?useUnicode=true&characterEncoding=utf-8");
+        dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/cfblog?useUnicode=true&characterEncoding=utf-8");
         dataSource.setUser("root");
         dataSource.setPassword("root");
         dataSource.setMinPoolSize(5);

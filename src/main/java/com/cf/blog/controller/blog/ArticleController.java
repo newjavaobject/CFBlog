@@ -1,7 +1,8 @@
 package com.cf.blog.controller.blog;
 
 import com.cf.blog.model.JsonResult;
-import com.cf.blog.model.Result;
+import com.cf.blog.model.PageResult;
+import com.cf.blog.model.ResultStatus;
 import com.cf.blog.model.blog.Article;
 import com.cf.blog.service.blog.IArticleService;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -28,15 +28,23 @@ public class ArticleController {
     @Resource(name = "articleService")
     private IArticleService articleService;
 
-    /** 新增文章 */
+    /** 到新增文章页面 */
     @RequestMapping("/add.html")
+    public String addArticle(){
+        return "admin/blog/blog_add";
+    }
+
+    /** 新增文章 */
+    @RequestMapping("/add.do")
     @ResponseBody
-    public JsonResult<String> addArticle(@RequestBody Article article){
-        int result = articleService.insertArticle(article);
+    public JsonResult<String> addArticle(Article article){
+        int result = 0;
+        if (article.getId() > 0) result = articleService.updateArticle(article, false);
+        else result = articleService.insertArticle(article);
         if (result > 0) {
-            return new JsonResult<>(Result.SUCCESS.getStatus(), Result.SUCCESS.getMsg(), "新增文章成功");
+            return new JsonResult<>(ResultStatus.SUCCESS, result + "", "新增文章成功");
         } else {
-            return new JsonResult<>(Result.FAILED.getStatus(), Result.FAILED.getMsg(), "新增文章失败");
+            return new JsonResult<>(ResultStatus.FAILED, ResultStatus.FAILED_MSG, "新增文章失败");
         }
     }
 
@@ -45,7 +53,7 @@ public class ArticleController {
     @ResponseBody
     public JsonResult<String> delArticle(@PathVariable("id") long id){
         articleService.deleteArticle(id);
-        return new JsonResult<>(Result.SUCCESS.getStatus(), Result.SUCCESS.getMsg(), "删除文章成功");
+        return new JsonResult<>(ResultStatus.SUCCESS, ResultStatus.SUCCESS_MSG, "删除文章成功");
     }
 
     /** 更新文章 */
@@ -54,9 +62,9 @@ public class ArticleController {
     public JsonResult<String> updateArticle(@PathVariable("id") Article article){
         int result = articleService.updateArticle(article, StringUtils.hasText(article.getContent())?false:true);
         if (result > 0) {
-            return new JsonResult<>(Result.SUCCESS.getStatus(), Result.SUCCESS.getMsg(), "编辑文章成功");
+            return new JsonResult<>(ResultStatus.SUCCESS, ResultStatus.SUCCESS_MSG, "编辑文章成功");
         } else {
-            return new JsonResult<>(Result.FAILED.getStatus(), Result.FAILED.getMsg(), "编辑文章失败");
+            return new JsonResult<>(ResultStatus.FAILED, ResultStatus.FAILED_MSG, "编辑文章失败");
         }
     }
 
@@ -77,14 +85,13 @@ public class ArticleController {
     }
 
     /** 根据条件获取文章列表 */
-    @RequestMapping("/list.html")
+    @RequestMapping("/list.do")
     @ResponseBody
-    public JsonResult<List<Article>> getArticleList(@RequestBody Article article){
-        List<Article> articleList = articleService.getArticleList(article);
-        if (null != articleList) {
-            return new JsonResult<>(Result.SUCCESS.getStatus(), Result.SUCCESS.getMsg(), articleList);
-        } else {
-            return new JsonResult<>(Result.FAILED.getStatus(), Result.FAILED.getMsg(), null);
-        }
+    public PageResult<List<Article>> getArticleList(Article article, HttpServletRequest request){
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        int start = (page - 1) * limit;
+        List<Article> articleList = articleService.getArticleList(null, start, limit);
+        return null != articleList ? new PageResult(0,"",1000, articleList) : new PageResult(0,"",1000, new ArrayList<>());
     }
 }

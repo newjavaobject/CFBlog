@@ -1,6 +1,7 @@
 package com.cf.blog.dao.blog;
 
 import com.cf.blog.model.blog.Article;
+import com.mysql.jdbc.Statement;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -9,9 +10,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,40 +35,45 @@ public class ArticleDAOImpl implements ArticleDAO {
     }
 
     @Override
-    public List<Article> getArticleList(Article article) {
+    public List<Article> getArticleList(Article article, int page, int limit) {
         StringBuilder sql = new StringBuilder("SELECT * FROM tb_article WHERE 1 = 1");
         List<Object> param = new ArrayList<>();
 
-        if (StringUtils.hasText(article.getTitle())) {
-            sql.append(" AND TITLE LIKE ?");
-            param.add("%" + article.getTitle() + "%");
-        }
-        if (StringUtils.hasText(article.getLabel())) {
-            sql.append(" AND LABEL LIKE ?");
-            param.add("%" + article.getLabel() + "%");
-        }
-        if (StringUtils.hasText(article.getStatus()+"")) {
-            sql.append(" AND STATUS = ?");
-            param.add(article.getStatus());
-        }
-        if (StringUtils.hasText(article.getType()+"")) {
-            sql.append(" AND TYPE = ?");
-            param.add(article.getType());
-        }
-        if (article.getUser() != null) {
-            sql.append(" AND USERID = ?");
-            param.add(article.getUser().getId());
+        if (article != null) {
+            if (StringUtils.hasText(article.getTitle())) {
+                sql.append(" AND TITLE LIKE ?");
+                param.add("%" + article.getTitle() + "%");
+            }
+            if (StringUtils.hasText(article.getLabel())) {
+                sql.append(" AND LABEL LIKE ?");
+                param.add("%" + article.getLabel() + "%");
+            }
+            if (StringUtils.hasText(article.getStatus() + "")) {
+                sql.append(" AND STATUS = ?");
+                param.add(article.getStatus());
+            }
+            if (StringUtils.hasText(article.getType() + "")) {
+                sql.append(" AND TYPE = ?");
+                param.add(article.getType());
+            }
+            if (article.getUser() != null) {
+                sql.append(" AND USERID = ?");
+                param.add(article.getUser().getId());
+            }
         }
 
-        return jdbcTemplate.query(sql.toString(), new ArticleRowMapper(), param.toArray());
+        return jdbcTemplate.query(sql.toString() + " limit "+ page + "," + limit, new ArticleRowMapper(), param.toArray());
     }
 
     @Override
     public int insertArticle(Article article) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(con -> con.prepareStatement("INSERT INTO tb_article(TITLE,TYPE,CREATETIME,STARTTIME,ENDTIME,STATUS,LABEL,CONTENT)" +
-                " VALUES ('"+article.getTitle()+"',"+article.getType()+","+article.getCreateTime()+","+article.getStartTime()+"," +
-                ""+article.getEndTime()+","+article.getStatus()+",'"+article.getLabel()+"','"+article.getContent()+"')"), keyHolder);
+        jdbcTemplate.update((Connection con) ->
+                con.prepareStatement("INSERT INTO tb_article(TITLE,TYPE,CREATETIME,STARTTIME,ENDTIME,STATUS,LABEL,CONTENT)" +
+                        " VALUES ('" + article.getTitle() + "'," + article.getType() + ",'" + sdf.format(new Date()) + "','" + article.getStartTime() + "'," +
+                        "'" + article.getEndTime() + "'," + article.getStatus() + ",'" + article.getLabel() + "','" + article.getContent() + "')", Statement.RETURN_GENERATED_KEYS)
+        , keyHolder);
         return keyHolder.getKey().intValue();
     }
 
@@ -76,7 +86,7 @@ public class ArticleDAOImpl implements ArticleDAO {
         }else {//不改变状态
             sql ="UPDATE tb_article SET TITLE=?,TYPE=?,STARTTIME=?,ENDTIME=?,LABEL=?,CONTENT=? WHERE ID = ?";
             return jdbcTemplate.update(sql, article.getTitle(), article.getType(), article.getStartTime(), article.getEndTime(),
-                    article.getLabel(), article.getContent());
+                    article.getLabel(), article.getContent(),article.getId());
         }
     }
 
@@ -93,9 +103,9 @@ public class ArticleDAOImpl implements ArticleDAO {
             article.setId(resultSet.getLong("ID"));
             article.setTitle(resultSet.getString("TITLE"));
             article.setType(resultSet.getInt("TYPE"));
-            article.setCreateTime(resultSet.getDate("CREATETIME"));
-            article.setStartTime(resultSet.getDate("STARTTIME"));
-            article.setEndTime(resultSet.getDate("ENDTIME"));
+            article.setCreateTime(resultSet.getString("CREATETIME"));
+            article.setStartTime(resultSet.getString("STARTTIME"));
+            article.setEndTime(resultSet.getString("ENDTIME"));
             article.setStatus(resultSet.getInt("STATUS"));
             article.setLabel(resultSet.getString("label"));
             article.setContent(resultSet.getString("CONTENT"));

@@ -29,8 +29,8 @@ public class ArticleService implements IArticleService {
     }
 
     @Override
-    public List<Article> getArticleList(Article article) {
-        return articleDAO.getArticleList(article);
+    public List<Article> getArticleList(Article article, int page, int limit) {
+        return articleDAO.getArticleList(article, page, limit);
     }
 
     @Override

@@ -12,7 +12,7 @@ public interface ArticleDAO {
     Article getArticleById(long id);
 
     /* 根据条件查询文章列表 */
-    List<Article> getArticleList(Article article);
+    List<Article> getArticleList(Article article, int page, int limit);
 
     /* 新增一篇文章 */
     int insertArticle(Article article);

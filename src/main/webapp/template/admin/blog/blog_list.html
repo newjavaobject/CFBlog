@@ -57,87 +57,41 @@
 		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="nouse">禁用</a>
 		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 	</script>
+    <script type="text/html" id="typeTpl">
+        if({{d.type}}=='0'){技术文章}else if({{d.type}}=='1'){分享文章}
+        else if({{d.type}}=='2'){代码文章}else if({{d.type}}=='3'){bug记录文章}
+    </script>
+    <script type="text/html" id="statusTpl">
+        if({{d.type}}=='0'){草稿编辑中}else if({{d.type}}=='1'){发布中}
+        else if({{d.type}}=='2'){失效}
+    </script>
 	<script>
-		layui.use('table', function() {
+		layui.use(['table','laytpl'], function() {
 			var table = layui.table;
+			var laytpl = layui.laytpl;
 			//展示已知数据
 			table.render({
 				elem: '#article_table',
-				cols: [
-					[
-						{
-							type: 'checkbox'
-						},
-						{
-							field: 'id',
-							title: 'ID',
-							width: 80,
-							sort: true
-						}, {
-							field: 'articleName',
-							title: '文章名',
-							width: 120
-						}, {
-							field: 'articleCategory',
-							title: '文章类别',
-							minWidth: 120
-						}, {
-							field: 'createTime',
-							title: '创建时间',
-							minWidth: 100
-						}, {
-							field: 'createUser',
-							title: '创建人',
-							width: 80
-						}, {
-							field: 'articleStatus',
-							title: '状态',
-							width: 80
-						}, {
-							field: 'viewCount',
-							title: '浏览量',
-							width: 80,
-							sort: true
-						},
-						{
-							field: 'label',
-							title: '标签',
-							width: 80,
-							sort: true
-						},
-						{
-							fixed: 'right',
-							width: 210,
-							align: 'center',
-							toolbar: '#operation'
-						}
+                url: '${ctx}/article/list.do',
+                page: true,
+                even: true,//隔行背景
+				cols: [[{field: 'id', title: 'ID', width: 80, sort: true},
+						{field: 'title', title: '标题', width: 120},
+						{field: 'type', title: '文章类型', minWidth: 120,templet: '#typeTpl'},
+						{field: 'createTime', title: '创建时间', minWidth: 100},
+						{field: 'startTime', title: '生效时间', minWidth: 100},
+						{field: 'endTime', title: '失效时间', minWidth: 100},
+//						{field: 'createUser', title: '创建人', width: 80},
+						{field: 'status', title: '状态', width: 80,templet: '#statusTpl'},
+						{field: 'label', title: '标签', width: 80},
+						{field: 'viewCount', title: '浏览量', width: 80, sort: true},
+						{field: 'likeCount', title: '点赞量', width: 80, sort: true},
+						{fixed: 'right', width: 210, align: 'center', toolbar: '#operation'}
 					]
 				],
-				page: true,
-				data: [{
-						"id": "10001",
-						"articleName": "杜甫",
-						"createTime": "xianxin@layui.com",
-						"createUser": "男",
-						"articleCategory": "浙江杭州",
-						"articleStatus": "人生恰似一场修行",
-						"viewCount": "116",
-						"label": "192.168.0.8"
-					}, {
-						"id": "10001",
-						"articleName": "杜甫",
-						"createTime": "xianxin@layui.com",
-						"createUser": "男",
-						"articleCategory": "浙江杭州",
-						"articleStatus": "人生恰似一场修行",
-						"viewCount": "116",
-						"label": "192.168.0.8",
-						"LAY_CHECKED": true
-					}],
 				even: true,
-				page: true //是否显示分页
-				//,limits: [5, 7, 10]
-				//,limit: 5 //每页默认显示的数量
+				limits: [10,20,30,40,50,60,70,80,90,100],
+				limit: 10 //每页默认显示的数量
 			});
 			
 			//监听工具条
