@@ -22,4 +22,7 @@ public interface IArticleService {
 
     /** 根据Id删除一篇文章 */
     void deleteArticle(long id);
+
+    /* 获取文章列表 --> 只有标题 */
+    List<Article> getArtileTitleList();
 }

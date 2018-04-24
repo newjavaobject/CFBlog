@@ -16,11 +16,6 @@
     	<![endif]-->
 		<link rel="stylesheet" href="${ctx}/static/js/layui/css/layui.css" />
 		<style>
-			.layui-form-item {
-				margin: 0px;
-				width: 200px;
-			}
-			
 			.layui-table-view {
 				margin-top: 0px;
 			}
@@ -40,10 +35,10 @@
 				<input type="text" name="articleCategory_s" placeholder="请输入类别" autocomplete="off" class="layui-input">
 			</div>
 		</div>
-		<button class="layui-btn" data-type="reload">搜索</button>
-		<div class="layui-inline" style="width: 500px;"></div>
-		<div class="layui-btn-group">
-			<button class="layui-btn" id="addArticle"><i class="layui-icon">&#xe654;</i>&nbsp;新增文章</button>
+		<div class="layui-form-item layui-inline">
+			<div class="layui-input-inline">
+				<button class="layui-btn" data-type="reload">搜索</button>
+			</div>
 		</div>
 		<table class="layui-hide" id="article_table" lay-filter="articleTable"></table>
 	</body>
@@ -58,12 +53,29 @@
 		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 	</script>
     <script type="text/html" id="typeTpl">
-        if({{d.type}}=='0'){技术文章}else if({{d.type}}=='1'){分享文章}
-        else if({{d.type}}=='2'){代码文章}else if({{d.type}}=='3'){bug记录文章}
+        {{#  if(d.type == 0){ }}
+        技术文章
+        {{#  } }}
+        {{#  if(d.type == 1){ }}
+        分享文章
+        {{#  } }}
+        {{#  if(d.type == 2){ }}
+        代码文章
+        {{#  } }}
+        {{#  if(d.type == 3){ }}
+        bug记录文章
+        {{#  } }}
     </script>
     <script type="text/html" id="statusTpl">
-        if({{d.type}}=='0'){草稿编辑中}else if({{d.type}}=='1'){发布中}
-        else if({{d.type}}=='2'){失效}
+        {{#  if(d.type == 0){ }}
+        草稿编辑中
+        {{#  } }}
+        {{#  if(d.type == 1){ }}
+        发布中
+        {{#  } }}
+        {{#  if(d.type == 2){ }}
+        失效
+        {{#  } }}
     </script>
 	<script>
 		layui.use(['table','laytpl'], function() {
@@ -75,21 +87,19 @@
                 url: '${ctx}/article/list.do',
                 page: true,
                 even: true,//隔行背景
-				cols: [[{field: 'id', title: 'ID', width: 80, sort: true},
+				cols: [[{field: 'id', title: 'ID', width: 40, sort: true},
 						{field: 'title', title: '标题', width: 120},
 						{field: 'type', title: '文章类型', minWidth: 120,templet: '#typeTpl'},
-						{field: 'createTime', title: '创建时间', minWidth: 100},
-						{field: 'startTime', title: '生效时间', minWidth: 100},
-						{field: 'endTime', title: '失效时间', minWidth: 100},
-//						{field: 'createUser', title: '创建人', width: 80},
+						{field: 'createTime', title: '创建时间', minWidth: 10},
+						{field: 'startTime', title: '生效时间', minWidth: 160},
+						{field: 'endTime', title: '失效时间', minWidth: 160},
 						{field: 'status', title: '状态', width: 80,templet: '#statusTpl'},
 						{field: 'label', title: '标签', width: 80},
-						{field: 'viewCount', title: '浏览量', width: 80, sort: true},
-						{field: 'likeCount', title: '点赞量', width: 80, sort: true},
+						{field: 'viewCount', title: '浏览量', width: 60, sort: true},
+						{field: 'likeCount', title: '点赞量', width: 60, sort: true},
 						{fixed: 'right', width: 210, align: 'center', toolbar: '#operation'}
 					]
 				],
-				even: true,
 				limits: [10,20,30,40,50,60,70,80,90,100],
 				limit: 10 //每页默认显示的数量
 			});
