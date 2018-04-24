@@ -17,7 +17,7 @@ public class IndexController {
 
     @RequestMapping("/index.html")//首页
     public String toIndex(HttpServletRequest request){
-        articleService.updateArticle();
+//        articleService.updateArticle();
         return "index";
     }
 }
