@@ -24,5 +24,8 @@ public interface IArticleService {
     void deleteArticle(long id);
 
     /* 获取文章列表 --> 只有标题 */
-    List<Article> getArtileTitleList();
+    List<Article> getArtileTitleList(int order);
+
+    /* 点赞 */
+    int updateLike(Article article);
 }

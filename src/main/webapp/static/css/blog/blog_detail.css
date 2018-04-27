@@ -1,0 +1,23 @@
+.layui-container {
+	margin: 0px;
+	padding: 0px;
+}
+/*去除圆角效果*/
+.layui-row .layui-nav {
+	border-radius: 0;
+}
+.layui-col-xs7 {
+	margin-top: 10px;
+	padding-left: 5px;
+	padding-right: 10px;
+}
+.layui-col-xs3 {
+	margin-top: 10px;
+	padding-right: 10px;
+	padding-left: 5px;
+}
+.layui-col-xs2 {
+	margin-top: 10px;
+	padding-right: 5px;
+	padding-left: 10px;
+}

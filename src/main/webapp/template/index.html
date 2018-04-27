@@ -87,86 +87,29 @@
             </fieldset>
             <hr class="layui-bg-red">
 
-            <div>
-                <div class="layui-inline" style="width: 15%;">
-                    <a href="blog/blog_detail.html" target="_blank"><img src="http://cdn.layui.com/avatar/168.jpg?t=1490352249902"></a>
-                </div>
-                <div class="layui-inline" style="width: 75%; margin-left: 10px">
-                    <a href="blog/blog_detail.html" target="_blank"><h2 style="margin-bottom: 10px;">标题一定要有</h2></a>
-                    <div style="margin-bottom: 10px;margin-top: 10px;">正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次</div>
-                    <div style="margin-top: 5px;">
-                        <div class="layui-inline" style="padding-left: 10px;padding-right: 200px;">
-                            <i class="layui-icon" style="font-size: 15px; color: #1E9FFF;">&#xe60e;</i>&nbsp;2015-09-23 12:23:89
-                        </div>
-                        <div class="layui-inline">
-                            <i class="layui-icon" style="font-size: 15px; color: #FFB800;">&#xe63a;</i>&nbsp;评论&nbsp;&nbsp;
-                            <i class="layui-icon" style="font-size: 15px; color: #01AAED;">&#xe705;</i>&nbsp;浏览&nbsp;&nbsp;
-                            <i class="layui-icon" style="font-size: 15px; color: #FF5722;">&#xe6c6;</i>&nbsp;点赞
+            <#list aList as list>
+                <div>
+                    <div class="layui-inline" style="width: 15%;">
+                        <a href="blog/blog_detail.html" target="_blank"><img src="http://cdn.layui.com/avatar/168.jpg?t=1490352249902"></a>
+                    </div>
+                    <div class="layui-inline" style="width: 75%; margin-left: 10px">
+                        <a href="${ctx}/article/detail/${list.id}.html" target="_blank"><h2 style="margin-bottom: 10px;">${list.title}</h2></a>
+                        <div style="margin-bottom: 10px;margin-top: 10px;">${list.content}</div>
+                        <div style="margin-top: 5px;">
+                            <div class="layui-inline" style="padding-left: 10px;padding-right: 200px;">
+                                <i class="layui-icon" style="font-size: 15px; color: #1E9FFF;">&#xe60e;</i>&nbsp;${list.createTime!""}
+                            </div>
+                            <div class="layui-inline">
+                                <i class="layui-icon" style="font-size: 15px; color: #FFB800;">&#xe63a;</i>&nbsp;评论&nbsp;&nbsp;
+                                <i class="layui-icon" style="font-size: 15px; color: #01AAED;">&#xe705;</i>&nbsp;浏览(${list.viewCount!0})&nbsp;&nbsp;
+                                <i onclick="likeClick(${list.id})" class="layui-icon" style="font-size: 15px; color: #FF5722;">&#xe6c6;</i>&nbsp;
+                                点赞(<span id="like_${list.id}">${list.likeCount!0}</span>)
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <hr class="layui-bg-green">
-            <div>
-                <div class="layui-inline" style="width: 15%;">
-                    <img src="http://cdn.layui.com/avatar/168.jpg?t=1490352249902">
-                </div>
-                <div class="layui-inline" style="width: 75%;">
-                    <h2 style="margin-bottom: 10px;">标题一定要有</h2>
-                    <div style="margin-bottom: 10px;margin-top: 10px;">正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次</div>
-                    <div style="margin-top: 5px;">
-                        <div class="layui-inline" style="padding-left: 10px;padding-right: 200px;">
-                            <i class="layui-icon" style="font-size: 15px; color: #1E9FFF;">&#xe60e;</i>&nbsp;2015-09-23 12:23:89
-                        </div>
-                        <div class="layui-inline">
-                            <i class="layui-icon" style="font-size: 15px; color: #FFB800;">&#xe63a;</i>&nbsp;评论&nbsp;&nbsp;
-                            <i class="layui-icon" style="font-size: 15px; color: #01AAED;">&#xe705;</i>&nbsp;浏览&nbsp;&nbsp;
-                            <i class="layui-icon" style="font-size: 15px; color: #FF5722;">&#xe6c6;</i>&nbsp;点赞
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr class="layui-bg-green">
-            <div>
-                <div class="layui-inline" style="width: 15%;">
-                    <img src="http://cdn.layui.com/avatar/168.jpg?t=1490352249902">
-                </div>
-                <div class="layui-inline" style="width: 75%;">
-                    <h2 style="margin-bottom: 10px;">标题一定要有</h2>
-                    <div style="margin-bottom: 10px;margin-top: 10px;">正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次</div>
-                    <div style="margin-top: 5px;">
-                        <div class="layui-inline" style="padding-left: 10px;padding-right: 200px;">
-                            <i class="layui-icon" style="font-size: 15px; color: #1E9FFF;">&#xe60e;</i>&nbsp;2015-09-23 12:23:89
-                        </div>
-                        <div class="layui-inline">
-                            <i class="layui-icon" style="font-size: 15px; color: #FFB800;">&#xe63a;</i>&nbsp;评论&nbsp;&nbsp;
-                            <i class="layui-icon" style="font-size: 15px; color: #01AAED;">&#xe705;</i>&nbsp;浏览&nbsp;&nbsp;
-                            <i class="layui-icon" style="font-size: 15px; color: #FF5722;">&#xe6c6;</i>&nbsp;点赞
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr class="layui-bg-green">
-            <div>
-                <div class="layui-inline" style="width: 15%;">
-                    <img src="http://cdn.layui.com/avatar/168.jpg?t=1490352249902">
-                </div>
-                <div class="layui-inline" style="width: 75%;">
-                    <h2 style="margin-bottom: 10px;">标题一定要有</h2>
-                    <div style="margin-bottom: 10px;margin-top: 10px;">正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次正文再次</div>
-                    <div style="margin-top: 5px;">
-                        <div class="layui-inline" style="padding-left: 10px;padding-right: 200px;">
-                            <i class="layui-icon" style="font-size: 15px; color: #1E9FFF;">&#xe60e;</i>&nbsp;2015-09-23 12:23:89
-                        </div>
-                        <div class="layui-inline">
-                            <i class="layui-icon" style="font-size: 15px; color: #FFB800;">&#xe63a;</i>&nbsp;评论&nbsp;&nbsp;
-                            <i class="layui-icon" style="font-size: 15px; color: #01AAED;">&#xe705;</i>&nbsp;浏览&nbsp;&nbsp;
-                            <i class="layui-icon" style="font-size: 15px; color: #FF5722;">&#xe6c6;</i>&nbsp;点赞
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr class="layui-bg-green">
+                <hr class="layui-bg-green">
+            </#list>
         </div>
         <div class="layui-col-xs3">
             <div id="calendar"></div>
@@ -178,100 +121,42 @@
                 <div class="layui-tab-content" style="height: 135px;">
                     <div class="layui-tab-item layui-show">
                         <div>
-                            <div>
-                                <div class="layui-inline" style="width: 15%;">
-                                    <span class="layui-badge layui-bg-red">1</span>
+                            <#list tList as list>
+                                <div>
+                                    <div class="layui-inline" style="width: 15%;">
+                                        <#if list_index==0><span class="layui-badge layui-bg-red">1</span>
+                                            <#elseif list_index==1><span class="layui-badge">2</span>
+                                            <#elseif list_index==2><span class="layui-badge layui-bg-orange">3</span>
+                                            <#elseif list_index==3><span class="layui-badge layui-bg-cyan">4</span>
+                                            <#else><span class="layui-badge layui-bg-cyan">5</span>
+                                        </#if>
+                                    </div>
+                                    <div class="layui-inline" style="width: 75%;">
+                                        <h3 style="margin-bottom: 10px;"><a href="${ctx}/article/detail/${list.id}.html" target="_blank">${list.title}</a></h3>
+                                    </div>
                                 </div>
-                                <div class="layui-inline" style="width: 75%;">
-                                    <h3 style="margin-bottom: 10px;">这次只有标题一了啊有</h3>
-                                </div>
-                            </div>
-                            <hr class="layui-bg-gray" style="margin: 0px;">
-                            <div>
-                                <div class="layui-inline" style="width: 15%;">
-                                    <span class="layui-badge">2</span>
-                                </div>
-                                <div class="layui-inline" style="width: 75%;">
-                                    <h3 style="margin-bottom: 10px;">这次只有标题一了啊有</h3>
-                                </div>
-                            </div>
-                            <hr class="layui-bg-gray" style="margin: 0px;">
-                            <div>
-                                <div class="layui-inline" style="width: 15%;">
-                                    <span class="layui-badge layui-bg-orange">3</span>
-                                </div>
-                                <div class="layui-inline" style="width: 75%;">
-                                    <h3 style="margin-bottom: 10px;">这次只有标题一了啊有</h3>
-                                </div>
-                            </div>
-                            <hr class="layui-bg-gray" style="margin: 0px;">
-                            <div>
-                                <div class="layui-inline" style="width: 15%;">
-                                    <span class="layui-badge layui-bg-cyan">4</span>
-                                </div>
-                                <div class="layui-inline" style="width: 75%;">
-                                    <h3 style="margin-bottom: 10px;">这次只有标题一了啊有</h3>
-                                </div>
-                            </div>
-                            <hr class="layui-bg-gray" style="margin: 0px;">
-                            <div>
-                                <div class="layui-inline" style="width: 15%;">
-                                    <span class="layui-badge layui-bg-cyan">5</span>
-                                </div>
-                                <div class="layui-inline" style="width: 75%;">
-                                    <h3 style="margin-bottom: 10px;">标题没有一十五字</h3>
-                                </div>
-                            </div>
-                            <hr class="layui-bg-gray" style="margin: 0px;">
+                                <hr class="layui-bg-gray" style="margin: 0px;">
+                            </#list>
                         </div>
                     </div>
                     <div class="layui-tab-item">
                         <div>
-                            <div>
-                                <div class="layui-inline" style="width: 15%;">
-                                    <span class="layui-badge layui-bg-red">1</span>
+                            <#list cList as list>
+                                <div>
+                                    <div class="layui-inline" style="width: 15%;">
+                                        <#if list_index==0><span class="layui-badge layui-bg-red">1</span>
+                                            <#elseif list_index==1><span class="layui-badge">2</span>
+                                            <#elseif list_index==2><span class="layui-badge layui-bg-orange">3</span>
+                                            <#elseif list_index==3><span class="layui-badge layui-bg-cyan">4</span>
+                                            <#else><span class="layui-badge layui-bg-cyan">5</span>
+                                        </#if>
+                                    </div>
+                                    <div class="layui-inline" style="width: 75%;">
+                                        <h3 style="margin-bottom: 10px;"><a href="${ctx}/article/${list.id}.html" target="_blank">${list.title}</a></h3>
+                                    </div>
                                 </div>
-                                <div class="layui-inline" style="width: 75%;">
-                                    <h3 style="margin-bottom: 10px;">标题没有一十五字</h3>
-                                </div>
-                            </div>
-                            <hr class="layui-bg-gray" style="margin: 0px;">
-                            <div>
-                                <div class="layui-inline" style="width: 15%;">
-                                    <span class="layui-badge">2</span>
-                                </div>
-                                <div class="layui-inline" style="width: 75%;">
-                                    <h3 style="margin-bottom: 10px;">标题没有一十五字</h3>
-                                </div>
-                            </div>
-                            <hr class="layui-bg-gray" style="margin: 0px;">
-                            <div>
-                                <div class="layui-inline" style="width: 15%;">
-                                    <span class="layui-badge layui-bg-orange">3</span>
-                                </div>
-                                <div class="layui-inline" style="width: 75%;">
-                                    <h3 style="margin-bottom: 10px;">标题没有一十五字</h3>
-                                </div>
-                            </div>
-                            <hr class="layui-bg-gray" style="margin: 0px;">
-                            <div>
-                                <div class="layui-inline" style="width: 15%;">
-                                    <span class="layui-badge layui-bg-cyan">4</span>
-                                </div>
-                                <div class="layui-inline" style="width: 75%;">
-                                    <h3 style="margin-bottom: 10px;">这次只有标题一了啊有</h3>
-                                </div>
-                            </div>
-                            <hr class="layui-bg-gray" style="margin: 0px;">
-                            <div>
-                                <div class="layui-inline" style="width: 15%;">
-                                    <span class="layui-badge layui-bg-cyan">5</span>
-                                </div>
-                                <div class="layui-inline" style="width: 75%;">
-                                    <h3 style="margin-bottom: 10px;">这次只有标题一了啊有</h3>
-                                </div>
-                            </div>
-                            <hr class="layui-bg-gray" style="margin: 0px;">
+                                <hr class="layui-bg-gray" style="margin: 0px;">
+                            </#list>
                         </div>
                     </div>
                 </div>
@@ -386,6 +271,15 @@
             calendar: true
         });
     });
+
+    function likeClick(id){
+        $.post('${ctx}/article/like/'+id+".do",{},function (result) {
+            if (result && result.status == 0) {
+//                console.log($("#like_"+id).text());
+                $("#like_"+id).text(Number($("#like_"+id).text()) + 1);
+            }
+        });
+    }
 </script>
 
 </html>

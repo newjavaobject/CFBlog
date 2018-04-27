@@ -39,8 +39,8 @@ public class SearchCondition {
 
     public String getGroupBy(){
         StringBuilder groupByStr = new StringBuilder("");
-        groupBy.forEach((str)->groupByStr.append(str));
-        return groupByStr.toString();
+        groupBy.forEach((str)->groupByStr.append(str).append(","));
+        return groupByStr.toString().substring(0, groupByStr.length()-1);
     }
 
     /* 增加一条排序 */

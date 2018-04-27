@@ -91,9 +91,28 @@ public class ArticleDAOImpl implements ArticleDAO {
     }
 
     @Override
+    public int updateLike(Article article) {
+        return jdbcTemplate.update("UPDATE tb_article SET LIKECOUNT = LIKECOUNT + 1 WHERE ID = ?", article.getId());
+    }
+
+    @Override
     public void deleteArticle(long id) {
         String sql = "DELETE FROM tb_article WHERE id = ?";
         jdbcTemplate.update(sql, id);
+    }
+
+    @Override
+    public List<Article> getArticleTitleList(int order){
+        return jdbcTemplate.query("SELECT ID,TITLE FROM tb_article ORDER BY " + (order == 0 ? "CREATETIME" : "VIEWCOUNT") + " LIMIT 0,5",
+                new RowMapper<Article>() {
+                    @Override
+                    public Article mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        Article article = new Article();
+                        article.setId(rs.getLong("ID"));
+                        article.setTitle(rs.getString("TITLE"));
+                        return article;
+                    }
+                });
     }
 
     private class ArticleRowMapper implements RowMapper<Article> {
@@ -107,8 +126,10 @@ public class ArticleDAOImpl implements ArticleDAO {
             article.setStartTime(resultSet.getString("STARTTIME"));
             article.setEndTime(resultSet.getString("ENDTIME"));
             article.setStatus(resultSet.getInt("STATUS"));
-            article.setLabel(resultSet.getString("label"));
+            article.setLabel(resultSet.getString("LABEL"));
             article.setContent(resultSet.getString("CONTENT"));
+            article.setViewCount(resultSet.getLong("VIEWCOUNT"));
+            article.setLikeCount(resultSet.getLong("LIKECOUNT"));
             return article;
         }
     }

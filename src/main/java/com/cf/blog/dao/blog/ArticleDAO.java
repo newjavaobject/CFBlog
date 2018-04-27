@@ -22,4 +22,13 @@ public interface ArticleDAO {
 
     /* 根据Id删除一篇文章 */
     void deleteArticle(long id);
+
+    /**
+     * 0：按时间排序 1：按浏览量排序
+     * @return
+     */
+    List<Article> getArticleTitleList(int order);
+
+    /* 点赞 */
+    int updateLike(Article article);
 }

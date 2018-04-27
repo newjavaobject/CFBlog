@@ -56,8 +56,16 @@ public class ArticleController {
         return new JsonResult<>(ResultStatus.SUCCESS, ResultStatus.SUCCESS_MSG, "删除文章成功");
     }
 
+    /** 获取文章 */
+    @RequestMapping("/detail/{id}.html")
+    public String detailArticle(@PathVariable("id") long id){
+        Article article = articleService.getArticleById(id);
+        RequestContextHolder.getRequestAttributes().setAttribute("article", article, 0);//0 即内部调用request.setAttribute(key, value)
+        return "blog/blog_detail";
+    }
+
     /** 更新文章 */
-    @RequestMapping("/update/{id}.html")
+    @RequestMapping("/update/{id}.do")
     @ResponseBody
     public JsonResult<String> updateArticle(@PathVariable("id") Article article){
         int result = articleService.updateArticle(article, StringUtils.hasText(article.getContent())?false:true);
@@ -68,20 +76,18 @@ public class ArticleController {
         }
     }
 
-    /** 获取一篇文章 */
-    @RequestMapping("/get/{id}.html")
-//    @ResponseBody  --  返回html页面
-    public String getArticle(@PathVariable long id){
-        Article article = articleService.getArticleById(id);
-        if (null == article) {
-            article = new Article();
-            article.setTitle("没有找到文章");
-            article.setContent("没有找到文章");
+    /** 更新文章 */
+    @RequestMapping("/like/{id}.do")
+    @ResponseBody
+    public JsonResult<String> likeArticle(@PathVariable("id") long id){
+        Article article = new Article();
+        article.setId(id);
+        int result = articleService.updateLike(article);
+        if (result > 0) {
+            return new JsonResult<>(ResultStatus.SUCCESS, ResultStatus.SUCCESS_MSG, "点赞成功");
+        } else {
+            return new JsonResult<>(ResultStatus.FAILED, ResultStatus.FAILED_MSG, "点赞失败");
         }
-
-        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
-        request.setAttribute("article", article);
-        return "blog_detail";
     }
 
     /** 根据条件获取文章列表 */

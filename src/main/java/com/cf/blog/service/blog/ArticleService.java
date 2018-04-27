@@ -47,4 +47,14 @@ public class ArticleService implements IArticleService {
     public void deleteArticle(long id) {
         articleDAO.deleteArticle(id);
     }
+
+    @Override
+    public List<Article> getArtileTitleList(int order) {
+        return articleDAO.getArticleTitleList(order);
+    }
+
+    @Override
+    public int updateLike(Article article) {
+        return articleDAO.updateLike(article);
+    }
 }
