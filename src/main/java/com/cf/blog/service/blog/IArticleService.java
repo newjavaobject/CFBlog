@@ -28,4 +28,7 @@ public interface IArticleService {
 
     /* 点赞 */
     int updateLike(Article article);
+
+    /* 浏览 */
+    int updateView(Article article);
 }

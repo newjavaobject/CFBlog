@@ -57,4 +57,9 @@ public class ArticleService implements IArticleService {
     public int updateLike(Article article) {
         return articleDAO.updateLike(article);
     }
+
+    @Override
+    public int updateView(Article article) {
+        return articleDAO.updateView(article);
+    }
 }

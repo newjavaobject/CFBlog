@@ -10,4 +10,7 @@ public class ResultStatus {
 
     public static final int FAILED = -1;
     public static final String FAILED_MSG = "失败";
+
+    public static final String FAILED_NO_TITLE = "请输入标题";
+    public static final String FAILED_NO_CONTENT = "请输入内容";
 }

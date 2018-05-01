@@ -38,6 +38,13 @@ public class ArticleController {
     @RequestMapping("/add.do")
     @ResponseBody
     public JsonResult<String> addArticle(Article article){
+        if(StringUtils.hasText(article.getTitle())){
+            return new JsonResult<>(ResultStatus.FAILED, ResultStatus.FAILED_NO_TITLE, "新增文章失败");
+        }
+        if(StringUtils.hasText(article.getContent())){
+            return new JsonResult<>(ResultStatus.FAILED, ResultStatus.FAILED_NO_CONTENT, "新增文章失败");
+        }
+
         int result = 0;
         if (article.getId() > 0) result = articleService.updateArticle(article, false);
         else result = articleService.insertArticle(article);
@@ -60,6 +67,7 @@ public class ArticleController {
     @RequestMapping("/detail/{id}.html")
     public String detailArticle(@PathVariable("id") long id){
         Article article = articleService.getArticleById(id);
+        if (null != article) articleService.updateView(article);//浏览量 +1
         RequestContextHolder.getRequestAttributes().setAttribute("article", article, 0);//0 即内部调用request.setAttribute(key, value)
         return "blog/blog_detail";
     }

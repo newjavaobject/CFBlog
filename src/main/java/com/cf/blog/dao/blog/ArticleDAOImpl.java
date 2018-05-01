@@ -96,6 +96,11 @@ public class ArticleDAOImpl implements ArticleDAO {
     }
 
     @Override
+    public int updateView(Article article) {
+        return jdbcTemplate.update("UPDATE tb_article SET VIEWCOUNT = VIEWCOUNT + 1 WHERE ID = ?", article.getId());
+    }
+
+    @Override
     public void deleteArticle(long id) {
         String sql = "DELETE FROM tb_article WHERE id = ?";
         jdbcTemplate.update(sql, id);
@@ -103,7 +108,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 
     @Override
     public List<Article> getArticleTitleList(int order){
-        return jdbcTemplate.query("SELECT ID,TITLE FROM tb_article ORDER BY " + (order == 0 ? "CREATETIME" : "VIEWCOUNT") + " LIMIT 0,5",
+        return jdbcTemplate.query("SELECT ID,TITLE FROM tb_article ORDER BY " + (order == 0 ? "CREATETIME DESC" : "VIEWCOUNT DESC") + " LIMIT 0,5",
                 new RowMapper<Article>() {
                     @Override
                     public Article mapRow(ResultSet rs, int rowNum) throws SQLException {
