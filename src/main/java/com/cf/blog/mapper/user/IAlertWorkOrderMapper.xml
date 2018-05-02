@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cf.blog.mapper.user.IAlertWorkOrderMapper">
+	<select id="queryAll" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select MONITOR_ID,ALERT_USERID from MAP_ALERT_USER
+	</select>
+</mapper>
