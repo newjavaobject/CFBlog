@@ -14,6 +14,7 @@
     	<![endif]-->
 		<link rel="stylesheet" href="${ctx}/static/js/layui/css/layui.css" />
 		<link rel="stylesheet" href="${ctx}/static/css/blog/blog_detail.css" />
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/darcula.min.css">
 	</head>
 
 	<body>
@@ -46,26 +47,6 @@
 					      <p>java程序猿 —— 来自"名字还没想好"</p>
 					    </div>
 					  </div>
-					  <div class="layui-colla-item">
-					    <h2 class="layui-colla-title layui-bg-red">为什么前Brap 框架</h2>
-					    <div class="layui-colla-content layui-show">
-					      <p>因为不适合。如果希望开发k目自行开发一套框架。——来自知乎@Kayo</p>
-					    </div>
-					  </div>
-					  <div class="layui-colla-item">
-					    <h2 class="layui-colla-title layui-bg-red">layui 更适合哪些开发者？</h2>
-					    <div class="layui-colla-content layui-show">
-					      <p>一领域注入活力，并采用一些更科学的架构方式。
-					      <br><br>
-					      因此准确地说，layui 更多是面向那些追求开发简单的前端工程师们，以及所有层次的服务端程序员。</p>
-					    </div>
-					  </div>
-					  <div class="layui-colla-item">
-					    <h2 class="layui-colla-title layui-bg-red">贤心是男是女？</h2>
-					    <div class="layui-colla-content layui-show">
-					      <p>man！ 所以这个问题不要再出现了。。。</p>
-					    </div>
-					  </div>
 					</div>
 				</div>
 				<div class="layui-col-xs7">
@@ -76,9 +57,10 @@
 						</div>
 						<div class="layui-inline">
 							标签：
-							<span class="layui-badge layui-bg-blue">6哈哈哈哈哈😄</span>
-							<span class="layui-badge layui-bg-blue">99</span>
-							<span class="layui-badge layui-bg-blue">61728</span>
+							<#assign labels = article.label/>
+							<#list labels?split(",") as label>
+								<span class="layui-badge layui-bg-blue">${label}</span>
+							</#list>
 						</div>
 					</div>
 					
@@ -152,7 +134,28 @@
 		</div>
 	</body>
 
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 	<script src="${ctx}/static/js/jquery-3.3.1.min.js"></script>
 	<script src="${ctx}/static/js/layui/layui.all.js"></script>
 	<script src="${ctx}/static/js/blog/blog_detail.js"></script>
+	<script>
+		window.onload = function () {
+            var swidth = window.innerWidth;
+            var sheight = window.innerHeight;
+            $("html").css("width", swidth); //html的高度和宽度
+            $("html").css("height", sheight);
+            $("body").css("width", swidth); //body的高度和宽度
+            $("body").css("height", sheight);
+
+            $(".layui-container").css("width", swidth);
+            $(".layui-container .layui-row:eq(1)").css("height", sheight - 60);
+            $(".layui-col-xs7").css("height", sheight - 60);
+            $(".layui-col-xs2").css("height", sheight - 60);
+            $(".layui-col-xs3").css("height", sheight - 60);
+
+			$('pre code').each(function(i, block) {
+				hljs.highlightBlock(block);
+			});
+        }
+	</script>
 </html>

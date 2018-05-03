@@ -108,13 +108,15 @@ public class ArticleDAOImpl implements ArticleDAO {
 
     @Override
     public List<Article> getArticleTitleList(int order){
-        return jdbcTemplate.query("SELECT ID,TITLE FROM tb_article ORDER BY " + (order == 0 ? "CREATETIME DESC" : "VIEWCOUNT DESC") + " LIMIT 0,5",
+        return jdbcTemplate.query("SELECT ID,TITLE,STARTTIME FROM tb_article ORDER BY " +
+                        (order == 0 ? "STARTTIME DESC" : (order == 1 ? "VIEWCOUNT DESC" : "LIKECOUNT DESC")) + " LIMIT 0,5",
                 new RowMapper<Article>() {
                     @Override
                     public Article mapRow(ResultSet rs, int rowNum) throws SQLException {
                         Article article = new Article();
                         article.setId(rs.getLong("ID"));
                         article.setTitle(rs.getString("TITLE"));
+                        article.setStartTime(rs.getString("STARTTIME"));
                         return article;
                     }
                 });

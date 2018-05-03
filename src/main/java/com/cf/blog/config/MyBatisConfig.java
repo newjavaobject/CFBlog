@@ -21,7 +21,7 @@ import java.io.IOException;
 @Configuration
 public class MyBatisConfig {
 
-    @Bean
+//    @Bean
     public SqlSessionTemplate sqlSessionTemplate(){
         SqlSessionTemplate template = null;
         try {
@@ -32,7 +32,7 @@ public class MyBatisConfig {
         return template;
     }
 
-    @Bean
+//    @Bean
     public SqlSessionFactoryBean sqlSessionFactoryBean(){
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setConfigLocation(new ClassPathResource("config/MyBatis-Configuration.xml"));
@@ -47,7 +47,7 @@ public class MyBatisConfig {
         return factoryBean;
     }
 
-    @Bean
+//    @Bean
     public MapperScannerConfigurer mapperScannerConfigurer(){
         MapperScannerConfigurer configurer = new MapperScannerConfigurer();
         configurer.setBasePackage("com.cf.blog.mapper");
@@ -70,22 +70,22 @@ public class MyBatisConfig {
     @Bean(destroyMethod = "close")
     public ComboPooledDataSource comboPooledDataSource() {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
-        try {
-            dataSource.setDriverClass("oracle.jdbc.driver.OracleDriver");
-        } catch (PropertyVetoException e) {
-            e.printStackTrace();
-        }
-        dataSource.setJdbcUrl("jdbc:oracle:thin:@//111.9.4.88:1521/orcl");
-        dataSource.setUser("ztapp");
-        dataSource.setPassword("ztapp");
 //        try {
-//            dataSource.setDriverClass("com.mysql.jdbc.Driver");
+//            dataSource.setDriverClass("oracle.jdbc.driver.OracleDriver");
 //        } catch (PropertyVetoException e) {
 //            e.printStackTrace();
 //        }
-//        dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/cfblog?useUnicode=true&characterEncoding=utf-8");
-//        dataSource.setUser("root");
-//        dataSource.setPassword("root");
+//        dataSource.setJdbcUrl("jdbc:oracle:thin:@//111.9.4.88:1521/orcl");
+//        dataSource.setUser("ztapp");
+//        dataSource.setPassword("ztapp");
+        try {
+            dataSource.setDriverClass("com.mysql.jdbc.Driver");
+        } catch (PropertyVetoException e) {
+            e.printStackTrace();
+        }
+        dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/cfblog?useUnicode=true&characterEncoding=utf-8");
+        dataSource.setUser("root");
+        dataSource.setPassword("root");
         dataSource.setMinPoolSize(5);
         dataSource.setMaxPoolSize(20);
         dataSource.setInitialPoolSize(5);

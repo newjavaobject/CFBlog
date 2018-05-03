@@ -38,10 +38,10 @@ public class ArticleController {
     @RequestMapping("/add.do")
     @ResponseBody
     public JsonResult<String> addArticle(Article article){
-        if(StringUtils.hasText(article.getTitle())){
+        if(!StringUtils.hasText(article.getTitle())){
             return new JsonResult<>(ResultStatus.FAILED, ResultStatus.FAILED_NO_TITLE, "新增文章失败");
         }
-        if(StringUtils.hasText(article.getContent())){
+        if(!StringUtils.hasText(article.getContent())){
             return new JsonResult<>(ResultStatus.FAILED, ResultStatus.FAILED_NO_CONTENT, "新增文章失败");
         }
 

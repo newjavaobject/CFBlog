@@ -21,9 +21,11 @@ public class IndexController {
     public String toIndex(HttpServletRequest request){
         List<Article> timeList = articleService.getArtileTitleList(0);//时间排序
         List<Article> countList = articleService.getArtileTitleList(1);//浏览量排序
+        List<Article> likeList = articleService.getArtileTitleList(2);//点赞数排序 --图文推荐处
         List<Article> articleList = articleService.getArticleList(null, 0, 5);
         request.setAttribute("tList", timeList);
         request.setAttribute("cList", countList);
+        request.setAttribute("lList", likeList);
         request.setAttribute("aList", articleList);
         return "index";
     }

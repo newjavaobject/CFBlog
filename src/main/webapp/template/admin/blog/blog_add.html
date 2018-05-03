@@ -148,8 +148,10 @@
                     label:$("input[name=label]").val(),
                     content:editor.txt.html()
                 },function (result) {
-                    $("#articleId").val(result.msg);
-                    layer.msg(articleId>0?"重新编辑成功":result.obj);
+                    if(result.status == 0) {
+                        $("#articleId").val(result.msg);
+                        layer.msg(articleId > 0 ? "重新编辑成功" : result.obj);
+                    }
                 });
                 return false;//false 阻止表单提交
             });
