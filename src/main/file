@@ -1,0 +1,15 @@
+一：功能分析
+    1、读取配置文件
+    2、根据配置文件（类），创建类实例放入缓存
+    3、获取容器中的类实例
+    XmlBeanDefinitionReader类中：应用了单一职责原则，将逻辑处理委托给单一的类进行处理  交给BeanDefinitionDocumentReader来读取注册
+    //protected int doLoadBeanDefinitions(InputSource inputSource, Resource resource) //执行解析
+    public int registerBeanDefinitions(Document doc, Resource resource) //执行解析
+
+    DefaultBeanDefinitionDocumentReader解析注册bean,一个类要么面向继承设计，要么final,
+    没有用final修饰，让子类实现（在解析前后可以做一些工作），是设计模式中的模版方法模式。
+    委托给BeanDefinitionParserDelegate进行具体解析
+    preProcessXml(root);//子类实现
+    parseBeanDefinitions(root, this.delegate);
+    postProcessXml(root);//子类实现
+    <--------------------- 46页 ----------------------->
