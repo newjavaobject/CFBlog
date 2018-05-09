@@ -10,7 +10,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <spring.version>4.3.8.RELEASE</spring.version>
+    <spring.version>3.2.18.RELEASE</spring.version>
   </properties>
 
 
@@ -168,16 +168,16 @@
               </configuration>
           </plugin>
       </plugins>
-  　　<resources>
-  　　　　<resource>
-  　　　　　　<directory>src/main/java</directory>
-            <includes>
-  　　　　　　　　<include>**/*.xml</include>
-  　　　　　　</includes>
-  　　　　</resource>
-        <resource>
-      　　　<directory>src/main/resources</directory>
-      　</resource>
-  　　</resources>
+  <!--　　<resources>-->
+  <!--　　　　<resource>-->
+  <!--　　　　　　<directory>src/main/java</directory>-->
+            <!--<includes>-->
+  <!--　　　　　　　　<include>**/*.xml</include>-->
+  <!--　　　　　　</includes>-->
+  <!--　　　　</resource>-->
+        <!--<resource>-->
+      <!--　　　<directory>src/main/resources</directory>-->
+      <!--　</resource>-->
+  <!--　　</resources>-->
   </build>
 </project>

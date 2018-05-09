@@ -1,5 +1,8 @@
 package com.cf.blog;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,5 +30,12 @@ public class Test {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @org.junit.Test
+    public void test(){
+        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+        User user = ac.getBean(User.class);
+        System.out.println(user.getId() + ":" + user.getName());
     }
 }
