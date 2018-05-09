@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * Created by chenzhiyu on 2018/4/10 0010.
  */
-@Repository("articleService")
+@Service("articleService")
 public class ArticleService implements IArticleService {
     @Resource(name = "articleDAO")
     protected ArticleDAO articleDAO;

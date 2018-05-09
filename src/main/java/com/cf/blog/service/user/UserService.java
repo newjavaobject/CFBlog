@@ -6,6 +6,7 @@ import com.cf.blog.model.user.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -17,7 +18,7 @@ import java.util.List;
 /**
  * Created by chenzhiyu on 2018/4/7 0007.
  */
-@Repository("userService")
+@Service("userService")
 public class UserService implements IUserService {
     @Resource(name = "userDAO")
     protected UserDAO userDAO;

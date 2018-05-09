@@ -10,7 +10,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <spring.version>3.2.18.RELEASE</spring.version>
+    <spring.version>4.3.8.RELEASE</spring.version>
   </properties>
 
 
@@ -149,11 +149,11 @@
     <!--ojdbc6， 远程库下载失败，先用以下命令将本地jar包打入到本地maven库后再引用-->
     <!--  mvn install:install-file -DgroupId=oracle -DartifactId=ojdbc6 -Dversion=11.2.0.3 -Dpackaging=jar-->
     <!--  -Dfile=D:\workspace\market\WebRoot\WEB-INF\lib\ojdbc6-11.2.0.3.jar-->
-    <dependency>
-      <groupId>oracle</groupId>
-      <artifactId>ojdbc6</artifactId>
-      <version>11.2.0.3</version>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>oracle</groupId>-->
+      <!--<artifactId>ojdbc6</artifactId>-->
+      <!--<version>11.2.0.3</version>-->
+    <!--</dependency>-->
 
   </dependencies>
   <build>
