@@ -16,6 +16,7 @@
     <![endif]-->
     <link rel="stylesheet" href="${ctx}/static/js/layui/css/layui.css" />
     <link rel="stylesheet" href="${ctx}/static/css/index.css" />
+    <link rel="stylesheet" href="${ctx}/static/js/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 </head>
 
 <body>
@@ -40,19 +41,47 @@
     </div>
     <div class="layui-row">
         <div class="layui-col-xs2">
-            <div style="padding-left: 50px;margin-bottom: 10px;"><img src="http://cdn.layui.com/avatar/168.jpg?t=1490352249902" class="layui-circle"></div>
-            <div class="layui-collapse" lay-filter="atrist_list">
-                <div class="layui-colla-item">
-                    <h2 class="layui-colla-title layui-bg-black">关于作者</h2>
-                    <div class="layui-colla-content layui-show">
-                        <p>程序猿一枚咯</p>
-                    </div>
+            <div style="margin-bottom: 10px;">
+                <div class="layui-inline"><img width="48px" height="48px" src="http://cdn.layui.com/avatar/168.jpg?t=1490352249902" class="layui-circle"></div>
+                <div class="layui-inline">
+                    <span style="font-size: large;font-family: Consolas;font-weight: 200">陈志宇 的博客</span><br>
+                    <span style="font-size: small;font-weight: 100">文章数：</span><br>
+                    <span style="font-size: small;font-weight: 100">评论数：</span>
                 </div>
-                <div class="layui-colla-item">
-                    <h2 class="layui-colla-title layui-bg-black">文章分类</h2>
-                    <div class="layui-colla-content layui-show">
-                        .
-                    </div>
+            </div>
+            <div class="layui-card">
+                <div class="layui-card-header layui-bg-blue">关于作者</div>
+                <div class="layui-card-body" style="padding: 0px">
+                    <blockquote class="layui-elem-quote layui-quote-nm">
+                        程序猿一枚咯
+                    </blockquote>
+                </div>
+            </div>
+            <div class="layui-card">
+                <div class="layui-card-header layui-bg-blue">文章分类</div>
+                <div class="layui-card-body" style="padding: 0px">
+                    <blockquote class="layui-elem-quote layui-quote-nm">
+                        <div style="padding-bottom: 5px;">
+                            <h5><a href="https://www.baidu.com" target="_blank" style="color: #007DDB"><u>阿斯利的看法阿克苏地方</u></a></h5>
+                        </div>
+                        <div style="padding-bottom: 5px;">
+                            <h5><a href="https://www.baidu.com" target="_blank" style="color: #007DDB"><u>啊收到阿萨德刻个百度一下</u></a></h5>
+                        </div>
+                        <div style="padding-bottom: 5px;">
+                            <h5><a href="https://www.baidu.com" target="_blank" style="color: #007DDB"><u>百阿萨德阿萨度一下</u></a></h5>
+                        </div>
+                        <div>
+                            <h5><a href="https://www.baidu.com" target="_blank" style="color: #007DDB"><u>杜阿斯蒂芬度一旦法下</u></a></h5>
+                        </div>
+                    </blockquote>
+                </div>
+            </div>
+            <div class="layui-card">
+                <div class="layui-card-header layui-bg-blue">归档</div>
+                <div class="layui-card-body" style="padding: 0px">
+                    <blockquote class="layui-elem-quote layui-quote-nm">
+                        <ul id="timeTree" class="ztree"></ul>
+                    </blockquote>
                 </div>
             </div>
         </div>
@@ -191,6 +220,7 @@
 <script src="${ctx}/static/js/jquery-3.3.1.min.js"></script>
 <script src="${ctx}/static/js/layui/layui.all.js"></script>
 <script src="${ctx}/static/js/index.js"></script>
+<script type="text/javascript" src="${ctx}/static/js/zTree/js/jquery.ztree.core.js"></script>
 <script>
     var onload = window.onload;
     if(typeof onload == "function") {
@@ -233,5 +263,45 @@
         });
     }
 </script>
+<script type="text/javascript">
+    <!--
+    var setting = {
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback:{
+            onClick:function (e,node) {
+                console.log(e);
+                console.log(node);
+            }
+        }
+    };
 
+    var zNodes =[
+        { id:1, pId:0, name:"2018年", open:true},
+        { id:11, pId:1, name:"05月"},
+        { id:111, pId:11, name:"01号"},
+        { id:112, pId:11, name:"02号"},
+        { id:12, pId:1, name:"04月"},
+        { id:121, pId:12, name:"03号"},
+        { id:122, pId:12, name:"04号"},
+        { id:13, pId:1, name:"03月", isParent:true},
+        { id:2, pId:0, name:"2017年"},
+        { id:21, pId:2, name:"01月", open:true},
+        { id:211, pId:21, name:"07号"},
+        { id:22, pId:2, name:"02月"},
+        { id:23, pId:2, name:"03月"},
+        { id:231, pId:23, name:"23号"},
+        { id:232, pId:23, name:"12号"},
+        { id:233, pId:23, name:"07号"},
+        { id:234, pId:23, name:"09号"},
+        { id:3, pId:0, name:"2016年", isParent:true}
+    ];
+
+    $(document).ready(function(){
+        $.fn.zTree.init($("#timeTree"), setting, zNodes);
+    });
+</script>
 </html>
