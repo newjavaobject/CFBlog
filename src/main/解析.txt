@@ -1,0 +1,85 @@
+一：功能分析
+    1、读取配置文件
+    2、根据配置文件（类），创建类实例放入缓存
+    3、获取容器中的类实例
+    XmlBeanDefinitionReader类中：应用了单一职责原则，将逻辑处理委托给单一的类进行处理  交给BeanDefinitionDocumentReader来读取注册
+    //protected int doLoadBeanDefinitions(InputSource inputSource, Resource resource) //执行解析
+    public int registerBeanDefinitions(Document doc, Resource resource) //执行解析
+
+    DefaultBeanDefinitionDocumentReader解析注册bean,一个类要么面向继承设计，要么final,
+    没有用final修饰，让子类实现（在解析前后可以做一些工作），是设计模式中的模版方法模式。
+    委托给BeanDefinitionParserDelegate进行具体解析
+    preProcessXml(root);//子类实现
+    parseBeanDefinitions(root, this.delegate);
+    postProcessXml(root);//子类实现
+    <------------------------------------------------- 79页 -------------------------------------------------------->
+    getBean("") --> doGetBean(...)步骤：
+    （1） Object sharedInstance = getSingleton(beanName);//尝试从缓存中取（单例）
+        DefaultSingletonBeanRegistry类中实现
+        protected Object getSingleton(String beanName, boolean allowEarlyReference) {
+        		Object singletonObject = this.singletonObjects.get(beanName);       //singletonObjects：容器中用于存放所有的单例
+        		if (singletonObject == null && isSingletonCurrentlyInCreation(beanName)) {
+        			synchronized (this.singletonObjects) {
+        				singletonObject = this.earlySingletonObjects.get(beanName);
+        				if (singletonObject == null && allowEarlyReference) {
+        					ObjectFactory<?> singletonFactory = this.singletonFactories.get(beanName);
+        					if (singletonFactory != null) {
+        						singletonObject = singletonFactory.getObject();
+        						this.earlySingletonObjects.put(beanName, singletonObject);
+        						this.singletonFactories.remove(beanName);
+        					}
+        				}
+        			}
+        		}
+        		return (singletonObject != NULL_OBJECT ? singletonObject : null); //第一次获取bean时返回null
+        	}
+
+
+     （2）如果缓存没有，则  ////////////////////////new ObjectFactory<Object>(){} [[[1]]]
+     // Create bean instance.
+        if (mbd.isSingleton()) {
+            sharedInstance = getSingleton(beanName, new ObjectFactory<Object>() {
+                public Object getObject() throws BeansException {
+                    try {
+                        return createBean(beanName, mbd, args);
+                    }
+                    catch (BeansException ex) {
+                        // Explicitly remove instance from singleton cache: It might have been put there
+                        // eagerly by the creation process, to allow for circular reference resolution.
+                        // Also remove any beans that received a temporary reference to the bean.
+                        destroySingleton(beanName);
+                        throw ex;
+                    }
+                }
+            });
+            bean = getObjectForBeanInstance(sharedInstance, name, beanName, mbd);
+        }
+
+
+     try {
+        singletonObject = singletonFactory.getObject();   //回调方法
+    }
+
+
+    (3) createBean中（实例化的前置处理）：
+    try {
+        // Give BeanPostProcessors a chance to return a proxy instead of the target bean instance.
+        Object bean = resolveBeforeInstantiation(beanName, mbd);
+        if (bean != null) {
+            return bean;
+        }
+    }
+    //此处的短路判断，即是aop实现的依据，resolveBeforeInstantiation中调用逻辑如下
+    bean = applyBeanPostProcessorsBeforeInstantiation(mbd.getBeanClass(), beanName); //BeanPostProcessor  此处为InstantiationAwareBeanPostProcessor
+    if (bean != null) {
+        bean = applyBeanPostProcessorsAfterInitialization(bean, beanName);
+    }
+    （4）在initBean中调用
+    invokeAwareMethods(beanName, bean);  //激活 *Aware接口
+    applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName);   //Initialization
+    及 applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName); //Initialization
+
+
+    (5) InitializingBean的afterPropertiesSet()方法在前调用，  init-method（@PostConstruct）方法在后
+
+ <------------------------------------------------- 140页 -------------------------------------------------------->
