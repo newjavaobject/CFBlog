@@ -1,0 +1,2 @@
+BeanFactoryPostProcessor接口，只有一个方法postProcessBeanFactory：
+    当spring加载实现该接口的bean时，会在bean工厂载入所有bean配置之后执行postProcessBeanFactory()方法。
