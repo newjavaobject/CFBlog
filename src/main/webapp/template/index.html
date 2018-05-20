@@ -104,10 +104,10 @@
 
             <#list aList as list>
                 <div>
-                    <div class="layui-inline" style="width: 15%;">
-                        <a href="blog/blog_detail.html" target="_blank"><img src="http://cdn.layui.com/avatar/168.jpg?t=1490352249902"></a>
+                    <div class="layui-inline" style="width: 10%;">
+                        <a href="blog/blog_detail.html" target="_blank"><img width="80px" height="80px" src="http://cdn.layui.com/avatar/168.jpg?t=1490352249902"></a>
                     </div>
-                    <div class="layui-inline" style="width: 75%; margin-left: 10px">
+                    <div class="layui-inline" style="width: 80%; margin-left: 10px">
                         <a href="${ctx}/article/detail/${list.id}.html" target="_blank"><h2 style="margin-bottom: 10px;">${list.title}</h2></a>
                         <div style="margin-bottom: 10px;margin-top: 10px;">${list.content}</div>
                         <div style="margin-top: 5px;">
@@ -272,8 +272,9 @@
             }
         },
         callback:{
-            onClick:function (e,node) {
-                console.log(e);
+            onClick:function (event,id,node) {
+                console.log(event);
+                console.log(id);
                 console.log(node);
             }
         }
@@ -302,6 +303,7 @@
 
     $(document).ready(function(){
         $.fn.zTree.init($("#timeTree"), setting, zNodes);
+        $(".layui-nav .layui-nav-item:eq(0)").addClass("layui-this");
     });
 </script>
 </html>

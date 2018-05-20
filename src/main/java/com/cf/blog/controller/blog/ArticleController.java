@@ -34,6 +34,12 @@ public class ArticleController {
         return "admin/blog/blog_add";
     }
 
+    /** 到新增文章页面 */
+    @RequestMapping("/search_list.html")
+    public String searchList(){
+        return "blog/blog_search_list";
+    }
+
     /** 新增文章 */
     @RequestMapping("/add.do")
     @ResponseBody
