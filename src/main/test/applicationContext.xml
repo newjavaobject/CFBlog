@@ -12,9 +12,9 @@
 
     <context:component-scan base-package="com.cf.blog.transaction.service" />
 
-    <tx:annotation-driven proxy-target-class="true"/>
+    <tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
 
-    <tx:advice id="txAdvice" transaction-manager="transactionManager"/>
+    <!--<tx:advice id="txAdvice" transaction-manager="transactionManager"/>-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
