@@ -16,75 +16,15 @@
     <![endif]-->
     <link rel="stylesheet" href="${ctx}/static/js/layui/css/layui.css" />
     <link rel="stylesheet" href="${ctx}/static/css/index.css" />
-    <link rel="stylesheet" href="${ctx}/static/js/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <script src="${ctx}/static/js/jquery-3.3.1.min.js"></script>
+    <script src="${ctx}/static/js/layui/layui.all.js"></script>
 </head>
 
 <body>
 <div class="layui-container">
+    <#include "/top.html">
     <div class="layui-row">
-        <ul class="layui-nav layui-bg-black">
-            <li class="layui-nav-item">
-                <a href="javascript:void(0)">首页</a>
-            </li>
-            <li class="layui-nav-item">
-                <a href="javascript:void(0)">代码</a>
-            </li>
-            <li style="width: 400px;" class="layui-inline">
-                <div class="layui-inline layui-bg-black">
-                    <input type="text" name="keyword" placeholder="请输入" autocomplete="off" class="layui-input">
-                </div>
-                <div class="layui-inline layui-bg-black">
-                    <button class="layui-btn layui-btn-normal">搜索</button>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div class="layui-row">
-        <div class="layui-col-xs2">
-            <div style="margin-bottom: 10px;">
-                <div class="layui-inline"><img width="48px" height="48px" src="http://cdn.layui.com/avatar/168.jpg?t=1490352249902" class="layui-circle"></div>
-                <div class="layui-inline">
-                    <span style="font-size: large;font-family: Consolas;font-weight: 200">陈志宇 的博客</span><br>
-                    <span style="font-size: small;font-weight: 100">文章数：</span><br>
-                    <span style="font-size: small;font-weight: 100">评论数：</span>
-                </div>
-            </div>
-            <div class="layui-card">
-                <div class="layui-card-header layui-bg-blue">关于作者</div>
-                <div class="layui-card-body" style="padding: 0px">
-                    <blockquote class="layui-elem-quote layui-quote-nm">
-                        程序猿一枚咯
-                    </blockquote>
-                </div>
-            </div>
-            <div class="layui-card">
-                <div class="layui-card-header layui-bg-blue">文章分类</div>
-                <div class="layui-card-body" style="padding: 0px">
-                    <blockquote class="layui-elem-quote layui-quote-nm">
-                        <div style="padding-bottom: 5px;">
-                            <h5><a href="https://www.baidu.com" target="_blank" style="color: #007DDB"><u>阿斯利的看法阿克苏地方</u></a></h5>
-                        </div>
-                        <div style="padding-bottom: 5px;">
-                            <h5><a href="https://www.baidu.com" target="_blank" style="color: #007DDB"><u>啊收到阿萨德刻个百度一下</u></a></h5>
-                        </div>
-                        <div style="padding-bottom: 5px;">
-                            <h5><a href="https://www.baidu.com" target="_blank" style="color: #007DDB"><u>百阿萨德阿萨度一下</u></a></h5>
-                        </div>
-                        <div>
-                            <h5><a href="https://www.baidu.com" target="_blank" style="color: #007DDB"><u>杜阿斯蒂芬度一旦法下</u></a></h5>
-                        </div>
-                    </blockquote>
-                </div>
-            </div>
-            <div class="layui-card">
-                <div class="layui-card-header layui-bg-blue">归档</div>
-                <div class="layui-card-body" style="padding: 0px">
-                    <blockquote class="layui-elem-quote layui-quote-nm">
-                        <ul id="timeTree" class="ztree"></ul>
-                    </blockquote>
-                </div>
-            </div>
-        </div>
+        <#include "/left.html">
         <div class="layui-col-xs7">
             <div class="layui-carousel" id="lunbo">
                 <div carousel-item="">
@@ -97,34 +37,36 @@
                 </div>
             </div>
 
-            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;margin-bottom: 0px;">
-                <legend>文章推荐</legend>
-            </fieldset>
-            <hr class="layui-bg-red">
+            <div id="blog_list">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;margin-bottom: 0px;">
+                    <legend>文章推荐</legend>
+                </fieldset>
+                <hr class="layui-bg-red">
 
-            <#list aList as list>
-                <div>
-                    <div class="layui-inline" style="width: 10%;">
-                        <a href="blog/blog_detail.html" target="_blank"><img width="80px" height="80px" src="http://cdn.layui.com/avatar/168.jpg?t=1490352249902"></a>
-                    </div>
-                    <div class="layui-inline" style="width: 80%; margin-left: 10px">
-                        <a href="${ctx}/article/detail/${list.id}.html" target="_blank"><h2 style="margin-bottom: 10px;">${list.title}</h2></a>
-                        <div style="margin-bottom: 10px;margin-top: 10px;">${list.content}</div>
-                        <div style="margin-top: 5px;">
-                            <div class="layui-inline" style="padding-left: 10px;padding-right: 200px;">
-                                <i class="layui-icon" style="font-size: 15px; color: #1E9FFF;">&#xe60e;</i>&nbsp;${list.startTime!""}
-                            </div>
-                            <div class="layui-inline">
-                                <i class="layui-icon" style="font-size: 15px; color: #FFB800;">&#xe63a;</i>&nbsp;评论&nbsp;&nbsp;
-                                <i class="layui-icon" style="font-size: 15px; color: #01AAED;">&#xe705;</i>&nbsp;浏览(${list.viewCount!0})&nbsp;&nbsp;
-                                <i onclick="likeClick(${list.id})" class="layui-icon" style="font-size: 15px; color: #FF5722;">&#xe6c6;</i>&nbsp;
-                                点赞(<span id="like_${list.id}">${list.likeCount!0}</span>)
+                <#list aList as list>
+                    <div>
+                        <div class="layui-inline" style="width: 10%;">
+                            <a href="blog/blog_detail.html" target="_blank"><img width="80px" height="80px" src="${ctx}/static/imgs/img.jpg"></a>
+                        </div>
+                        <div class="layui-inline" style="width: 80%; margin-left: 10px">
+                            <a href="${ctx}/article/detail/${list.id}.html" target="_blank"><h2 style="margin-bottom: 10px;">${list.title}</h2></a>
+                            <div style="margin-bottom: 10px;margin-top: 10px;">${list.content}</div>
+                            <div style="margin-top: 5px;">
+                                <div class="layui-inline" style="padding-left: 10px;padding-right: 200px;">
+                                    <i class="layui-icon" style="font-size: 15px; color: #1E9FFF;">&#xe60e;</i>&nbsp;${list.startTime!""}
+                                </div>
+                                <div class="layui-inline">
+                                    <i class="layui-icon" style="font-size: 15px; color: #FFB800;">&#xe63a;</i>&nbsp;评论&nbsp;&nbsp;
+                                    <i class="layui-icon" style="font-size: 15px; color: #01AAED;">&#xe705;</i>&nbsp;浏览(${list.viewCount!0})&nbsp;&nbsp;
+                                    <i onclick="likeClick(${list.id})" class="layui-icon" style="font-size: 15px; color: #FF5722;">&#xe6c6;</i>&nbsp;
+                                    点赞(<span id="like_${list.id}">${list.likeCount!0}</span>)
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <hr class="layui-bg-green">
-            </#list>
+                    <hr class="layui-bg-green">
+                </#list>
+            </div>
         </div>
         <div class="layui-col-xs3">
             <div id="calendar"></div>
@@ -192,14 +134,36 @@
                 </#list>
             </div>
             <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;margin-bottom: 0px;">
-                <legend>图文推荐</legend>
+                <legend>热评文章</legend>
             </fieldset>
 
             <div>
                 <#list lList as list>
                     <div style="margin-top: 5px;">
                         <div class="layui-inline" style="width: 15%;">
-                            <img width="30px" height="30px" src="http://cdn.layui.com/avatar/168.jpg?t=1490352249902">
+                            <img width="30px" height="30px" src="${ctx}/static/imgs/img.jpg">
+                        </div>
+                        <div class="layui-inline" style="width: 75%;">
+                            <h4 style="margin-bottom: 2px;color: blue;">${list.title}</h4>
+                            <div style="margin-top: 2px;">
+                                <div class="layui-inline">
+                                    <i class="layui-icon" style="font-size: 15px; color: #1E9FFF;">&#xe60e;</i>&nbsp;${list.startTime!''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </#list>
+            </div>
+
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;margin-bottom: 0px;">
+                <legend>热门文章</legend>
+            </fieldset>
+
+            <div>
+                <#list lList as list>
+                    <div style="margin-top: 5px;">
+                        <div class="layui-inline" style="width: 15%;">
+                            <img width="30px" height="30px" src="${ctx}/static/imgs/img.jpg">
                         </div>
                         <div class="layui-inline" style="width: 75%;">
                             <h4 style="margin-bottom: 2px;color: blue;">${list.title}</h4>
@@ -215,12 +179,10 @@
         </div>
     </div>
 </div>
+<!--<#include "/bottom.html">-->
 </body>
 
-<script src="${ctx}/static/js/jquery-3.3.1.min.js"></script>
-<script src="${ctx}/static/js/layui/layui.all.js"></script>
 <script src="${ctx}/static/js/index.js"></script>
-<script type="text/javascript" src="${ctx}/static/js/zTree/js/jquery.ztree.core.js"></script>
 <script>
     var onload = window.onload;
     if(typeof onload == "function") {
@@ -237,7 +199,7 @@
         //图片轮播
         carousel.render({
             elem: '#lunbo',
-            width: $(".layui-col-xs7").width()+100,
+            width: $(".layui-col-xs7").width(),
             height: '350px',
             interval: 5000
         });
@@ -262,48 +224,5 @@
             }
         });
     }
-</script>
-<script type="text/javascript">
-    <!--
-    var setting = {
-        data: {
-            simpleData: {
-                enable: true
-            }
-        },
-        callback:{
-            onClick:function (event,id,node) {
-                console.log(event);
-                console.log(id);
-                console.log(node);
-            }
-        }
-    };
-
-    var zNodes =[
-        { id:1, pId:0, name:"2018年", open:true},
-        { id:11, pId:1, name:"05月"},
-        { id:111, pId:11, name:"01号"},
-        { id:112, pId:11, name:"02号"},
-        { id:12, pId:1, name:"04月"},
-        { id:121, pId:12, name:"03号"},
-        { id:122, pId:12, name:"04号"},
-        { id:13, pId:1, name:"03月", isParent:true},
-        { id:2, pId:0, name:"2017年"},
-        { id:21, pId:2, name:"01月", open:true},
-        { id:211, pId:21, name:"07号"},
-        { id:22, pId:2, name:"02月"},
-        { id:23, pId:2, name:"03月"},
-        { id:231, pId:23, name:"23号"},
-        { id:232, pId:23, name:"12号"},
-        { id:233, pId:23, name:"07号"},
-        { id:234, pId:23, name:"09号"},
-        { id:3, pId:0, name:"2016年", isParent:true}
-    ];
-
-    $(document).ready(function(){
-        $.fn.zTree.init($("#timeTree"), setting, zNodes);
-        $(".layui-nav .layui-nav-item:eq(0)").addClass("layui-this");
-    });
 </script>
 </html>

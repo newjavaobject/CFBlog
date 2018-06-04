@@ -1,5 +1,7 @@
 package com.cf.blog;
 
+import com.cf.blog.model.user.Role;
+import com.cf.blog.transaction.service.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -37,5 +39,44 @@ public class Test {
         ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
         User user = ac.getBean(User.class);
         System.out.println(user.getId() + ":" + user.getName());
+    }
+
+    @org.junit.Test
+    public void testTransation(){
+        com.cf.blog.model.user.User user = new com.cf.blog.model.user.User();
+        user.setName("name");
+        user.setAge(2);
+        user.setEmail("email");
+        user.setLoginName("loginname");
+        user.setPhone("phone");
+        Role role = new Role();
+        role.setId(4);
+        user.setRole(role);
+
+
+        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+        UserService service = ac.getBean(UserService.class);
+        Thread thread1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                service.insert(user);
+            }
+        });
+        Thread thread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(service.queryForList(user,role).get(0).getName());
+            }
+        });
+        thread1.start();
+        thread2.start();
+        try {
+            thread1.join();
+            thread2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+//        service.insert(user);
+//        service.delete(user);
     }
 }
