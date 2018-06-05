@@ -1,0 +1,13 @@
+// Create the TransactionAttributeSource definition.
+RootBeanDefinition sourceDef = new RootBeanDefinition("org.springframework.transaction.annotation.AnnotationTransactionAttributeSource");
+
+// Create the TransactionInterceptor definition.    注册TransactionInterceptor.class
+RootBeanDefinition interceptorDef = new RootBeanDefinition(TransactionInterceptor.class);
+registerTransactionManager(element, interceptorDef); //获取xml中配置的txManager注册到该bean的属性中
+interceptorDef.getPropertyValues().add("transactionAttributeSource", new RuntimeBeanReference(sourceName));
+
+
+// Create the TransactionAttributeSourceAdvisor definition.
+RootBeanDefinition advisorDef = new RootBeanDefinition(BeanFactoryTransactionAttributeSourceAdvisor.class);
+advisorDef.getPropertyValues().add("transactionAttributeSource", new RuntimeBeanReference(sourceName));
+advisorDef.getPropertyValues().add("adviceBeanName", interceptorName);
