@@ -15,6 +15,12 @@ public class NettyTimeClient {
         new NettyTimeClient().connect("127.0.0.1", 1111);
     }
 
+    /**
+     * 使用 LineBasedFrameDecoder
+     * @param host
+     * @param port
+     * @throws Exception
+     */
     public void connect(String host, int port) throws Exception {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
