@@ -15,4 +15,8 @@ public class MallardDuck extends Duck implements Flyable,Quack {
     public void quack() {
 
     }
+
+    public static void aaaaa(){
+        System.out.println("aaaaa");
+    }
 }
