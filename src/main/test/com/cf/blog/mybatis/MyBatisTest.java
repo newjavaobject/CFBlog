@@ -10,19 +10,21 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 public class MyBatisTest {
     @Test
     public void mybatisTest() throws IOException {
         InputStream is = Resources.getResourceAsStream("MyBatis-Configuration.xml");
-
         SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
 
         SqlSession session = factory.openSession();
-
         UserMapper mapper = session.getMapper(UserMapper.class);
-        System.out.println(JSONArray.toJSONString(mapper.getUserList()));
 
+        Classes class4 = mapper.getClass4(1);
+        System.out.println(class4.getStudents());
+
+        System.out.println("111");
         session.close();
     }
 }

@@ -2,8 +2,11 @@ package com.cf.blog;
 
 import com.cf.blog.model.user.Role;
 import com.cf.blog.transaction.service.UserService;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,6 +39,13 @@ public class Test {
 
     @org.junit.Test
     public void test(){
+        BeanFactory factory = new XmlBeanFactory(new ClassPathResource("applicationContext.xml"));
+        User user = factory.getBean(User.class);
+        System.out.println("名字:" + user.getName());
+    }
+
+    @org.junit.Test
+    public void test1(){
         ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
         User user = ac.getBean(User.class);
         System.out.println(user.getId() + ":" + user.getName());

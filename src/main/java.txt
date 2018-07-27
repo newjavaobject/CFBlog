@@ -1,3 +1,9 @@
+1. 泛化(Generalization)   实线   带三角箭头的
+2. 实现(Realization)      虚线   三角箭头的
+3. 关联(Association)      实线   带普通箭头的
+4. 聚合(Aggregation)      实线   带空心菱形的
+5. 组合(Composition)      实线   带实心菱形的
+6. 依赖(Dependency)       虚线   带普通箭头的
 Java基础：
     1、List 和 Set 的区别
     2、HashSet 是如何保证不重复的

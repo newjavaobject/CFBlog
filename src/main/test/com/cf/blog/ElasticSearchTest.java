@@ -113,6 +113,107 @@ import java.util.Date;
  */
 //https://www.elastic.co/guide/cn/elasticsearch/guide/current/mapping-analysis.html
     ////分页   ： GET /_search?size=5&from=10
+
+/**
+ * 映射：
+ *      索引一个包含新域的文档--之前未曾出现-- Elasticsearch 会使用 动态映射 ，通过JSON中基本数据类型，尝试猜测域类型。
+ *      GET /megacorp/employee/_search
+ *      GET /megacorp/_mapping/employee
+ *
+ *      PUT /gb {"mappings": {     ---------创建索引 指定映射
+ *     "tweet" : {
+ *       "properties" : {
+ *         "tweet" : {
+ *           "type" :    "string",
+ *           "analyzer": "english"
+ *         },
+ *         "date" : {
+ *           "type" :   "date"
+ *         },
+ *         "name" : {
+ *           "type" :   "string"
+ *         },
+ *         "user_id" : {
+ *           "type" :   "long"
+ *         }}}}}
+ *       新增映射：PUT /gb/_mapping/tweet
+ * {
+ *   "properties" : {
+ *     "tag" : {
+ *       "type" :    "string",
+ *       "index":    "not_analyzed"
+ *     }
+ *   }
+ * }
+ */
+
+/**
+ * match_all查询：
+ *      match_all 查询简单的匹配所有文档。在没有指定查询方式时，它是默认的查询
+ * match查询：
+ *      无论你在任何字段上进行的是全文搜索还是精确查询，match 查询是你可用的标准查询，
+ *      如果你在一个全文字段上使用 match 查询，在执行查询前，它将用正确的分析器去分析查询字符串，
+ *      如果在一个精确值的字段上使用它， 例如数字、日期、布尔或者一个 not_analyzed 字符串字段，那么它将会精确匹配给定的值
+ *      （对于精确值的查询，你可能需要使用 filter 语句来取代 query，因为 filter 将会被缓存）
+ * multi_match查询：
+ *      multi_match查询可以在多个字段上执行相同的 match 查询：
+ *      {"multi_match": {"query": "full text search","fields": [title", "body"]}}
+ * range查询：
+ *      rang查询找出那些落在指定区间内的数字或者时间：
+ *      {"range": {"age": {"gte":  20,"lt":   30}}}
+ * term 查询：
+ *      term 查询被用于精确值 匹配，这些精确值可能是数字、时间、布尔或者那些 not_analyzed 的字符串：
+ *      { "term": { "age":    26           }}
+ *      { "term": { "date":   "2014-09-01" }}
+ *      { "term": { "public": true         }}
+ *      { "term": { "tag":    "full_text"  }}
+ *      term查询对于输入的文本  不分析 ，所以它将给定的值进行精确查询。
+ * terms 查询：
+ *      terms 查询和 term 查询一样，但它允许你指定多值进行匹配。如果这个字段包含了指定值中的任何一个值，那么这个文档满足条件：
+ *      {"terms": { "tag": [ "search", "full_text", "nosql" ] }}
+ * exists 查询和 missing 查询：
+ *      exists 查询和 missing 查询被用于查找那些指定字段中有值 (exists) 或无值 (missing) 的文档。这与SQL中的 IS_NULL (missing) 和 NOT IS_NULL (exists) 在本质上具有共性：
+ *      {"exists":   {"field":    "title"}}
+ * 组合多查询：
+ *      可以用 bool 查询来实现需求。这种查询将多查询组合在一起，成为用户自己想要的布尔查询。它接收以下参数：
+ *      must：文档 必须 匹配这些条件才能被包含进来。
+ *      must_not：文档 必须不 匹配这些条件才能被包含进来。
+ *      should：如果满足这些语句中的任意语句，将增加 _score ，否则，无任何影响。它们主要用于修正每个文档的相关性得分。
+ *      filter：必须匹配，但它以不评分、过滤模式来进行。这些语句对评分没有贡献，只是根据过滤标准来排除或包含文档。
+ */
+//通常当查找一个精确值的时候，我们不希望对查询进行评分计算。只希望对文档进行包括或排除的计算，
+//        所以我们会使用 constant_score 查询以非评分模式来执行 term 查询并以一作为统一评分。
+//        最终组合的结果是一个 constant_score 查询，它包含一个 term 查询：
+//
+//        GET /my_store/products/_search
+//        {
+//        "query" : {
+//        "constant_score" : {
+//        "filter" : {
+//        "term" : {
+//        "price" : 20
+//        }
+//        }
+//        }
+//        }
+//        }
+
+/**
+ * 为了避免这种问题，我们需要告诉 Elasticsearch 该字段具有精确值，要将其设置成 not_analyzed 无需分析的
+ * PUT /my_store
+ * {
+ *     "mappings" : {
+ *         "products" : {
+ *             "properties" : {
+ *                 "productID" : {
+ *                     "type" : "string",
+ *                     "index" : "not_analyzed"
+ *                 }
+ *             }
+ *         }
+ *     }
+ * }
+ */
 public class ElasticSearchTest {
     TransportClient client = null;
     @Before
