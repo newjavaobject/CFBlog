@@ -21,8 +21,8 @@ public class MyBatisTest {
         SqlSession session = factory.openSession();
         UserMapper mapper = session.getMapper(UserMapper.class);
 
-        Classes class4 = mapper.getClass4(1);
-        System.out.println(class4.getStudents());
+//        Classes class4 = mapper.getClass4(1);
+//        System.out.println(class4.getStudents());
 
         System.out.println("111");
         session.close();

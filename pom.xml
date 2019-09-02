@@ -10,8 +10,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <!--<spring.version>4.3.8.RELEASE</spring.version>-->
-    <spring.version>3.2.18.RELEASE</spring.version>
+    <spring.version>4.3.8.RELEASE</spring.version>
+    <!--<spring.version>3.2.18.RELEASE</spring.version>-->
   </properties>
 
 
@@ -22,6 +22,14 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.0.1</version>
+      <scope>provided</scope>
+    </dependency>
+
 
     <!-- spring begin -->
     <dependency>
@@ -133,21 +141,22 @@
     </dependency>
 
     <!-- 日志相关 -->
-    <dependency>
+    <!--<dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
       <version>2.9.1</version>
-    </dependency>
+    </dependency>-->
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.16</version>
     </dependency>
+
     <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
-      <version>1.2</version>
+      <version>1.7.9</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -165,11 +174,11 @@
     <!--ojdbc6， 远程库下载失败，先用以下命令将本地jar包打入到本地maven库后再引用-->
     <!--  mvn install:install-file -DgroupId=oracle -DartifactId=ojdbc6 -Dversion=11.2.0.3 -Dpackaging=jar-->
     <!--  -Dfile=D:\workspace\market\WebRoot\WEB-INF\lib\ojdbc6-11.2.0.3.jar-->
-    <dependency>
-      <groupId>oracle</groupId>
-      <artifactId>ojdbc6</artifactId>
-      <version>11.2.0.3</version>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>oracle</groupId>-->
+      <!--<artifactId>ojdbc6</artifactId>-->
+      <!--<version>11.2.0.3</version>-->
+    <!--</dependency>-->
     <!--<dependency>-->
       <!--<groupId>io.netty</groupId>-->
       <!--<artifactId>netty-all</artifactId>-->

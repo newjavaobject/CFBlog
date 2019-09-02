@@ -19,7 +19,7 @@ import java.io.IOException;
  * Created by chenzhiyu on 2018/4/7 0007.
  */
 @Configuration
-public class MyBatisConfig {
+public class DataSourceConfig {
 
 //    @Bean
     public SqlSessionTemplate sqlSessionTemplate(){
@@ -78,12 +78,13 @@ public class MyBatisConfig {
 //        dataSource.setJdbcUrl("jdbc:oracle:thin:@//111.9.4.88:1521/orcl");
 //        dataSource.setUser("ztapp");
 //        dataSource.setPassword("ztapp");
+
         try {
             dataSource.setDriverClass("com.mysql.jdbc.Driver");
         } catch (PropertyVetoException e) {
             e.printStackTrace();
         }
-        dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/cfblog?useUnicode=true&characterEncoding=utf-8");
+        dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/cfblog?useUnicoue&characterEncoding=utf-8");
         dataSource.setUser("root");
         dataSource.setPassword("root");
         dataSource.setMinPoolSize(5);

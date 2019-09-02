@@ -24,7 +24,7 @@ public class WebApplicationStarter implements WebApplicationInitializer {
 
     public void onStartup(javax.servlet.ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.register(SpringMVC.class, ViewConfiguration.class, MyBatisConfig.class);
+        context.register(SpringMVC.class, ViewConfiguration.class, DataSourceConfig.class);
         DispatcherServlet servlet = new DispatcherServlet(context);
 
         ServletRegistration.Dynamic dynamic = servletContext.addServlet(SERVLET_NAME, servlet);
@@ -32,7 +32,7 @@ public class WebApplicationStarter implements WebApplicationInitializer {
         dynamic.addMapping("*.html");
         dynamic.setLoadOnStartup(1);
 
-        //interceptor
+        //过滤器
         CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
         encodingFilter.setEncoding("UTF-8");
         encodingFilter.setForceEncoding(true);

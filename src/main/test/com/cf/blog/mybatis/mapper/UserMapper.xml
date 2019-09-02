@@ -8,30 +8,30 @@
 		select * from map_t_user t
 	</select>
 
-	<select id="getClass4" parameterType="int" resultMap="ClassResultMap4">
-         select c_id id,c_name name from class where c_id=#{id}
-      </select>
-	<resultMap type="com.cf.blog.mybatis.Classes" id="ClassResultMap4">
+	<!--<select id="getClass4" parameterType="int" resultMap="ClassResultMap4">-->
+         <!--select c_id id,c_name name from class where c_id=#{id}-->
+      <!--</select>-->
+	<!--<resultMap type="com.cf.blog.mybatis.Classes" id="ClassResultMap4">-->
 		<!--          <id property="id" column="id"/> -->
 		<!--          <result property="name" column="c_name"/> -->
 		<!--          <association property="teacher" column="id" javaType="com.tellyes.oa.process.vo.Teacher" select="getTeacher2"></association> -->
-		<collection property="students" ofType="com.cf.blog.mybatis.Student" column="id" select="getStudent" fetchType="lazy">
-		</collection>
-	</resultMap>
+		<!--<collection property="students" ofType="com.cf.blog.mybatis.Student" column="id" select="getStudent" fetchType="lazy">-->
+		<!--</collection>-->
+	<!--</resultMap>-->
 
-    <resultMap type="com.cf.blog.mybatis.Student" id="student">
-        <collection property="subjects" ofType="com.cf.blog.mybatis.Subject" column="id" select="getSubject">
-        </collection>
-    </resultMap>
+    <!--<resultMap type="com.cf.blog.mybatis.Student" id="student">-->
+        <!--<collection property="subjects" ofType="com.cf.blog.mybatis.Subject" column="id" select="getSubject">-->
+        <!--</collection>-->
+    <!--</resultMap>-->
 	<!--<select id="getTeacher2" parameterType="int" resultType="com.cf.blog.mybatis.Teacher">-->
          <!--SELECT t_id id, t_name name FROM teacher WHERE t_id=#{id}-->
       <!--</select>-->
 
-	<select id="getStudent" parameterType="int" resultMap="student">
-         SELECT s_id id, s_name name FROM student WHERE class_id=#{id}
-      </select>
-	<select id="getSubject" parameterType="int" resultType="com.cf.blog.mybatis.Subject">
+	<!--<select id="getStudent" parameterType="int" resultMap="student">-->
+         <!--SELECT s_id id, s_name name FROM student WHERE class_id=#{id}-->
+      <!--</select>-->
+	<!--<select id="getSubject" parameterType="int" resultType="com.cf.blog.mybatis.Subject">-->
 -- 		SELECT id id, name name FROM subject
-		SELECT id id, name name FROM subject WHERE s_id=#{id}
-	</select>
+<!--/		SELECT id id, name name FROM subject WHERE s_id=#{id}-->
+	<!--</select>-->
 </mapper>

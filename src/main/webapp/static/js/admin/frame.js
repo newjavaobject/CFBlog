@@ -29,8 +29,9 @@ var map = {
 	"organize":"../template/organize/organize_list.html",
 	"permission_menu":"../template/organize/permission_menu.html",
 	"permission":"../template/permission/permission.html",
-	"blog":"/blog/admin/blog.html",
-	"article":"/blog/article/add.html"
+	"blog":"/cf/admin/blog.html",
+	"article":"/cf/article/add.html",
+    "category":"/cf/category/category.html"
 }
 
 layui.use('element', function() {
