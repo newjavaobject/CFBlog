@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="main/java/com/cf/blog/" kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="src/main/webapp/lib/ojdbc6-11.2.0.3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
